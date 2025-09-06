@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inscription - EcoRide</title>
+</head>
+<body>
+
+<main>
+    <h1>Créer un compte</h1>
+
+    <form action="../backend/src/users/inscription.php" method="POST">
+        <label for="pseudo">Pseudo</label><br>
+        <input type="text" name="pseudo" id="pseudo" placeholder="Entrez votre pseudo" required><br><br>
+
+        <label for="email">Adresse e-mail</label><br>
+        <input type="email" name="email" id="email" placeholder="exemple@mail.fr" required><br><br>
+
+        <label for="password">Mot de passe</label><br>
+        <input type="password" name="password" id="password" placeholder="*****" required><br><br>
+
+        <button type="submit">S’inscrire</button>
+    </form>
+
+    <br>
+    <p>Déjà inscrit ? <a href="../backend/src/users/connexion.php">Se connecter</a></p>
+</main>
+
+</body>
+</html>

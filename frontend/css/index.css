@@ -1,0 +1,251 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+}
+
+.header-container {
+  display: flex;
+  padding: 0.5rem 1 rem;
+  justify-content: space-between;
+  align-items: center;
+}
+  
+header {
+  position: relative;
+  z-index: 10;
+  background: #293133;
+  height: 120px;
+  overflow: hidden;
+}
+
+header img {
+  height: 60px;
+  vertical-align: middle;
+}
+
+h1 {
+  color:#293133;
+  -webkit-text-stroke-width: 0.5px;
+  -webkit-text-stroke-color:#01D758;
+  font-family: Inder;
+  font-size: 50px;
+  font-style: normal;
+  font-weight: 400;
+}
+
+.logo-title {
+  margin-left: 2rem;
+  display: flex;
+  align-items: flex-start;
+  font-size:50 px;
+  font-family: Inder, sans-serif;
+  color: #293133;
+  -webkit-text-stroke: 0.5 px #01D758;
+}
+
+.ride {
+  margin-top: 20px;
+}
+
+.icone {
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+  margin-right: 2rem;
+}
+  
+.head {
+  position: relative;
+  height: 500px;
+  overflow: visible;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.big-image {
+  position: absolute;
+  top: -20px;
+  left: 0;
+  width: 100%;
+  height: 700px;
+  background-size: cover;
+  background-position: bottom;
+  filter: opacity(0.5);
+  z-index: 0;
+}
+
+.search-box {
+  position: absolute;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 600px;
+  font-family: inria sans, sans-serif;
+  font-size: 20px;
+  gap: 1rem;
+  margin-top: 220px;
+}
+
+.head img {
+  width: 100%;
+  height: 600px;
+  object-fit: cover;
+  object-position: bottom;
+  display: block;
+}
+
+input[type="text"] {
+  width: 100%;
+  padding: 1rem;
+  border-radius: 15px;
+  border: 3px solid #293133;
+  font-size: 20px;
+  text-align: center;
+  background-color: transparent;
+}
+
+.trajet img {
+  width: 40%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+
+a {
+    text-decoration: none;
+    color: #293133;
+}
+
+button {
+  z-index: 10;
+  width: 100%;
+  padding: 1rem;
+  background: #01D758;
+  border: 1px solid #293133;
+  border-radius: 15px;
+  color: #293133;
+  font-size: 20px;
+  cursor: pointer;
+  font-family: inria sans, sans-serif;
+}
+
+.intro {
+  z-index: 1;
+  position: relative;
+  background: #048B9A;
+  padding-left: 4rem;
+  padding-right: 4rem;
+  padding-block-start: 6rem;
+  padding-block-end: 10rem;
+  font-family: inria sans;
+  font-size: 30px;
+  text-align: justify;
+}
+
+.intro img {
+  border-radius: 15%;
+  float: left;
+  margin-right: 4rem;
+  width:25%;
+  height: 50%;
+}
+
+footer {
+  background-color: #293133;
+  padding: 1rem 2rem;
+  font-family: inder, sans-serif;
+  color: white;
+}
+
+footer h1.footer-container {
+  color: #293133;
+  -webkit-text-stroke-width: 0.5px;
+  -webkit-text-stroke-color: #01D758;
+  font-family: Inder, sans-serif;
+  font-size: 40px;
+  font-weight: 400;
+  display: inline-flex;
+  align-items: flex-start;
+  gap: 5px;
+  margin: 0;
+}
+
+footer h1.footer-container img {
+  height: 50px;
+  vertical-align: middle;
+}
+
+footer h1.footer-container .ride {
+  margin-top: 20px;
+}
+
+.footer-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 2rem;
+}
+
+.email, .mentions {
+  margin: 0;
+}
+
+.mentions a {
+  color: blue;
+}
+
+
+@media screen and (max-width: 768px) {
+  
+  .header-container {
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem;
+  }
+
+  .logo-title {
+    margin-left: 0;
+    font-size: 40px;
+    justify-content: center;
+  }
+
+  .ride {
+    margin-top: 5px;
+  }
+
+  .icone {
+    margin-right: 0;
+    margin-top: 10px;
+  }
+
+  .search-box {
+    margin-top: 180px;
+    padding: 0 1rem;
+  }
+
+  .intro {
+    font-size: 20px;
+    padding: 2rem 1rem;
+  }
+
+  .intro img {
+    float: none;
+    display: block;
+    margin: 1rem auto;
+    width: 60%;
+    height: auto;
+  }
+
+  .footer-content {
+    flex-direction: column;
+    text-align: center;
+    gap: 1rem;
+  }
+}
+
