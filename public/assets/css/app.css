@@ -1,0 +1,6 @@
+.cropped-img {
+  height: 100px;        /* fixe une hauteur */
+  object-fit: cover;    /* rogne l'image pour remplir */
+  object-position: center; /* centre le recadrage */
+}
+
