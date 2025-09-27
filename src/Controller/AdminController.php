@@ -13,14 +13,14 @@ final class AdminController extends AbstractController
     {
         // $this->denyAccessUnlessGranted('ROLE_ADMIN');
 
-        return $this->render('admin/index.html.twig', [
+        return $this->render('admin/home/index.html.twig', [
             'controller_name' => 'AdminController',
         ]);
     }
     #[Route('/admin/charts', name: 'admin_charts')]
     public function charts(): Response
     {
-        return $this->render('admin/charts.html.twig');
+        return $this->render('admin/pages/charts.html.twig');
     }
 
     #[Route('/admin/buttons', name: 'admin_buttons')]
@@ -32,6 +32,6 @@ final class AdminController extends AbstractController
     #[Route('/admin/tables', name: 'admin_tables')]
     public function tables(): Response
     {
-        return $this->render('admin/tables.html.twig');
+        return $this->render('admin/page/tables.html.twig');
     }
 }
