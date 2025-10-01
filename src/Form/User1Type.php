@@ -6,24 +6,23 @@ use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 
-class UserType extends AbstractType
+class User1Type extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
             ->add('email')
-            
-            ->add('password', PasswordType::class, [
-                'mapped' => true,
-                'label' => 'Mot de passe',
-                'required' => false, // utile en édition pour laisser vide si pas de changement
-            ])
+            ->add('password')
             ->add('firstName')
             ->add('lastName')
             ->add('isVerified')
+            ->add('pseudo')
+            ->add('adress')
+            ->add('dateBirthdayAt', null, [
+                'widget' => 'single_text',
+            ])
+            ->add('picture')
         ;
     }
 
