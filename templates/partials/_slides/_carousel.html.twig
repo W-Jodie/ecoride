@@ -3,32 +3,62 @@
     <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
     <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
   </div>
+
   <div class="carousel-inner">
+    <!-- === SLIDE 1 === -->
     <div class="carousel-item active">
-      <div style="height:500px; overflow:hidden;">
+      <div style="height:500px; overflow:hidden; position:relative;">
         <img src="{{ asset('assets/img/car-pa.jpg') }}" class="w-100 h-100 object-fit-cover" alt="voiture qui roule sur une route">
-      </div>
-      <div class="carousel-caption d-none d-md-block" style="text-shadow: 10px 10px 10px #FFFFFF; color: var(--bs-dark);">
-          <h5 class="fs-1">Partagez la route</h5>
-          <p class="fs-3">Protégez l'avenir.</p>
+
+        <!-- Overlay pour lisibilité -->
+        <div style="position:absolute; top:0; left:0; width:100%; height:100%; background-color:rgba(255,255,255,0.4);"></div>
+
+        <!-- Texte centré -->
+        <div class="carousel-caption d-flex flex-column justify-content-center align-items-center h-100 text-center"
+             style="text-shadow: 2px 2px 10px rgba(0,0,0,0.3); color: var(--bs-dark);">
+          <h1 class="fs-1 fw-bold mb-3">Partagez la route</h1>
+          <h2 class="fs-3 mb-4">Protégez l’avenir avec EcoRide</h2>
+          <p class="fs-5 w-75 mx-auto">
+            Ensemble, réduisons notre empreinte carbone en partageant nos trajets du quotidien.
+            EcoRide connecte conducteurs et passagers autour d’une vision commune : une mobilité plus responsable,
+            plus humaine et plus économique.
+          </p>
+          <a href="#trajets" class="btn btn-lg btn-primary">Découvrir les trajets</a>
+        </div>
       </div>
     </div>
+
+    <!-- === SLIDE 2 === -->
     <div class="carousel-item">
-      <div style="height:500px; overflow:hidden;">
+      <div style="height:500px; overflow:hidden; position:relative;">
         <img src="{{ asset('assets/img/route.jpg') }}" class="w-100 h-100 object-fit-cover" alt="route de campagne">
-      </div>
-      <div class="carousel-caption d-none d-md-block" style="text-shadow: 10px 10px 10px #FFFFFF; color: var(--bs-dark);">
-          <h5 class="fs-1">EcoRide</h5>
-          <p class="fs-3">Le covoiturage qui respecte la planéte.</p>
+
+        <!-- Overlay -->
+        <div style="position:absolute; top:0; left:0; width:100%; height:100%; background-color:rgba(255,255,255,0.4);"></div>
+
+        <!-- Texte centré -->
+        <div class="carousel-caption d-flex flex-column justify-content-center align-items-center h-100 text-center"
+             style="text-shadow: 2px 2px 10px rgba(0,0,0,0.3); color: var(--bs-dark);">
+          <h1 class="fs-1 fw-bold mb-3">EcoRide</h1>
+          <h2 class="fs-3 mb-4">Le covoiturage qui respecte la planète</h2>
+          <p class="fs-5 w-75 mx-auto">
+            Grâce à notre plateforme intuitive, trouvez facilement un conducteur ou un passager,
+            gérez vos réservations et suivez votre impact écologique.  
+            Ensemble, faisons de chaque trajet un pas vers un futur plus vert.
+          </p>
+          <a href="#inscription" class="btn btn-lg btn-primary">Inscrivez-vous !</a>
+        </div>
       </div>
     </div>
   </div>
+
+  <!-- Boutons de navigation -->
   <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Previous</span>
+    <span class="visually-hidden">Précédent</span>
   </button>
   <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
     <span class="carousel-control-next-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Next</span>
+    <span class="visually-hidden">Suivant</span>
   </button>
 </div>
