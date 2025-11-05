@@ -1,0 +1,118 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Détails du trajet{% endblock %}
+
+{% block body %}
+{% set trajet = {
+    'conducteur': 'Ahmed',
+    'photo': 'https://via.placeholder.com/120',
+    'note': 4,
+    'villeDepart': 'Lille',
+    'villeArrivee': 'Paris',
+    'date_depart': '12/11/2025',
+    'heure_depart': '08:30',
+    'places': 3,
+    'eco': true,
+    'date_arrivee': '12/11/2025',
+    'heure_arrivee': '10:00',
+    'prix': 25,
+    'voiture': 'Peugeot e-208',
+    'consommation': '15 kWh / 100 km'
+} %}
+
+
+ <div class="container-fluid text-center mb-4 bg-light py-5">
+ <div class="container py-4">
+    <h1 class="fw-bold text-success">Détails du trajet</h1>
+    <p class="text-muted">Découvrez toutes les informations sur ce trajet éco-responsable 🌱</p>
+  </div>
+  </div>
+<div class="container my-5">
+  <!-- En-tête -->
+ 
+
+  <!-- Carte principale -->
+  <div class="card shadow-lg border-0 {{ trajet.eco ? 'bg-success bg-opacity-25' : 'bg-light' }}">
+    <div class="card-body">
+      <div class="row align-items-center">
+        
+        <!-- Conducteur -->
+        <div class="col-md-3 text-center">
+          <img src="{{ asset('assets/img/marie.jpg') }}" 
+               alt="Photo conducteur" 
+               class="img-fluid rounded mb-3 shadow-sm" 
+               style="width: 120px; height: 120px; object-fit: cover;">
+          <h4 class="fw-bold">{{ trajet.conducteur }}</h4>
+          <div class="text-warning mb-2">
+            <i class="bi bi-star-fill"></i>
+            <i class="bi bi-star-fill"></i>
+            <i class="bi bi-star-fill"></i>
+            <i class="bi bi-star-half"></i>
+            <i class="bi bi-star"></i>
+          </div>
+          <span class="badge rounded-pill {{ trajet.eco ? 'bg-success' : 'bg-secondary' }}">
+            {{ trajet.eco ? 'Trajet écologique' : 'Trajet standard' }}
+          </span>
+        </div>
+
+        <!-- Détails du trajet -->
+        <div class="col-md-9">
+          <div class="row g-3">
+            <div class="col-md-6">
+              <div class="p-3 border rounded bg-white shadow-sm">
+                <strong>Départ :</strong>
+                <p class="mb-0">{{ trajet.villeDepart }}</p>
+                <small>{{ trajet.date_depart }} à {{ trajet.heure_depart }}</small>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="p-3 border rounded bg-white shadow-sm">
+                <strong>Arrivée :</strong>
+                <p class="mb-0">{{ trajet.villeArrivee }}</p>
+                <small>{{ trajet.date_arrivee }} à {{ trajet.heure_arrivee }}</small>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="p-3 border rounded bg-white shadow-sm">
+                <strong>Places disponibles :</strong>
+                <p class="mb-0">{{ trajet.places }}</p>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="p-3 border rounded bg-white shadow-sm">
+                <strong>Prix :</strong>
+                <p class="mb-0">{{ trajet.prix }} €</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Boutons -->
+          <div class="mt-4 d-flex justify-content-between">
+            <a href="{{path('app_front_carpooling')}}" class="btn btn-outline-secondary">
+              ← Retour aux trajets
+            </a>
+            <button class="btn btn-success">
+              Réserver ce trajet
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section infos supplémentaires -->
+  <div class="mt-5">
+    <h3 class="text-success">Informations complémentaires</h3>
+    <p class="text-muted">
+      Ce trajet est proposé par <strong>{{ trajet.conducteur }}</strong>. 
+      Il/elle privilégie les trajets {{ trajet.eco ? 'éco-responsables' : 'classiques' }},
+      et veille à offrir une expérience de covoiturage conviviale et respectueuse de l’environnement.
+    </p>
+    <ul class="list-unstyled">
+      <li><i class="bi bi-car-front-fill text-success me-2"></i>Type de véhicule : {{ trajet.voiture|default('Non précisé') }}</li>
+      <li><i class="bi bi-fuel-pump text-success me-2"></i>Consommation estimée : {{ trajet.consommation|default('—') }}</li>
+      <li><i class="bi bi-people-fill text-success me-2"></i>Places disponibles : {{ trajet.places }}</li>
+    </ul>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,120 @@
+{% set trajets = [
+    {
+        conducteur: 'Ahmed',
+        photo: 'https://via.placeholder.com/120',
+        note: 4,
+        date_depart: '12/11/2025',
+        heure_depart: '08:30',
+        places: 3,
+        eco: true,
+        date_arrivee: '12/11/2025',
+        heure_arrivee: '10:00',
+        prix: 25,
+        sexe: 'M'
+    },
+    {
+        conducteur: 'Sofia',
+        photo: 'https://via.placeholder.com/120',
+        note: 5,
+        date_depart: '13/11/2025',
+        heure_depart: '09:00',
+        places: 2,
+        eco: false,
+        date_arrivee: '13/11/2025',
+        heure_arrivee: '11:15',
+        prix: 30,
+        sexe: 'F'
+    },
+    {
+        conducteur: 'Marc',
+        photo: 'https://via.placeholder.com/120',
+        note: 3,
+        date_depart: '14/11/2025',
+        heure_depart: '07:15',
+        places: 4,
+        eco: true,
+        date_arrivee: '14/11/2025',
+        heure_arrivee: '09:45',
+        prix: 20,
+        sexe: 'M'
+    },
+    {
+        conducteur: 'Lina',
+        photo: 'https://via.placeholder.com/120',
+        note: 5,
+        date_depart: '15/11/2025',
+        heure_depart: '18:00',
+        places: 1,
+        eco: true,
+        date_arrivee: '15/11/2025',
+        heure_arrivee: '20:30',
+        prix: 35,
+        sexe: 'F'
+    }
+] %}
+
+{% for trajet in trajets %}
+
+<div class="container my-4">
+      <div class="row border rounded shadow-sm p-3 {{ trajet.eco ? 'bg-success bg-opacity-25' : 'bg-light'   }}">
+                <!-- Colonne 1 -->
+        <div class="col-md-3 text-center">
+          <img
+            src="{{asset('assets/img/' ~ (trajet.sexe == 'F' ? 'marie.jpg' : 'joaquim.jpg') )}}"
+            class="img-fluid rounded mb-2"
+            alt="Photo conducteur"
+          />
+          <h5 class="mb-1">{{trajet.conducteur}}</h5>
+          <div class="text-warning">
+            <i class="bi bi-star-fill"></i>
+            <i class="bi bi-star-fill"></i>
+            <i class="bi bi-star-fill"></i>
+            <i class="bi bi-star-half"></i>
+            <i class="bi bi-star"></i>
+          </div>
+        </div>
+
+        <!-- Colonne 2 -->
+        <div class="col-md-4">
+          <div class="d-flex flex-column gap-2">
+            <div class="p-2 border rounded bg-success text-center shadow bg-opacity-25">
+              <strong>Date de départ</strong><br />
+              <small>{{trajet.date_depart}}</small>
+            </div>
+            <div class="p-2 border rounded bg-success text-center shadow bg-opacity-25">
+              <strong>Heure de départ</strong><br />
+              <small>{{trajet.heure_depart}}</small>
+            </div>
+            <div class="p-2 border rounded bg-success text-center shadow bg-opacity-25">
+              <strong>Nombre de places</strong><br />
+              <small>{{trajet.places}}</small>
+            </div>
+            <div class="p-2 border rounded bg-success text-center shadow bg-opacity-25">
+              <strong>Type</strong><br />
+              <span class="badge rounded-pill border-0 {{trajet.eco ? ' bg-success ' : ' bg-light'}}">{{trajet.eco ? 'Ecologique' : 'Standard'}}</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Colonne 3 -->
+        <div class="col-md-5">
+          <div class="d-flex flex-column gap-2">
+            <div class="p-2 border rounded bg-success text-center shadow bg-opacity-25">
+              <strong>Date d’arrivée</strong><br />
+              <small>{{trajet.date_arrivee}}</small>
+            </div>
+            <div class="p-2 border rounded bg-success text-center shadow bg-opacity-25">
+              <strong>Heure d’arrivée</strong><br />
+              <small>{{trajet.heure_arrivee}}</small>
+            </div>
+            <div class="p-2 border rounded bg-success text-center shadow bg-opacity-25">
+              <strong>Prix</strong><br />
+              <small>{{trajet.prix}} €</small>
+            </div>
+
+            <a href="{{path('app_front_carpooling_show', { 'id' : 1})}}" class="btn btn-primary btn-lg w-100">Détails</a>
+          </div>
+        </div>
+      </div>
+    </div>
+{% endfor %}
