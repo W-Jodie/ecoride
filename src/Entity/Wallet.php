@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\WalletRepository;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: WalletRepository::class)]
@@ -18,9 +19,11 @@ class Wallet
     private ?User $user = null;
 
     #[ORM\Column(nullable: true)]
+    #[Groups(['carpooling:read'])]
     private ?float $credit = null;
 
     #[ORM\Column(nullable: true)]
+    #[Groups(['carpooling:read'])]
     private ?float $pendingCredit = null;
 
     public function getId(): ?int
