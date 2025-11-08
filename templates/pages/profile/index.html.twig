@@ -1,0 +1,123 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mon Profil - EcoRide{% endblock %}
+
+{% block body %}
+<div class="container py-5">
+
+  <div class="row">
+    <!-- Profil à gauche -->
+    <div class="col-md-4 mb-4">
+      <div class="card shadow-sm text-center border border-2 border-success">
+        <div class="card-body">
+          <img src="{{ asset('assets/img/marie.jpg') }}" alt="Photo de profil" class="rounded-circle mb-3 shadow w-50">
+          <h5 class="fw-bold mb-1">Marie Dupont</h5>
+          <p class="text-muted mb-3">Conductrice depuis 2024</p>
+
+          <p><i class="bi bi-geo-alt-fill text-info me-2"></i> Lille, France</p>
+          <p><i class="bi bi-envelope-fill text-info me-2"></i> <a href="mailto:marie.dupont@ecoride.fr">marie.dupont@ecoride.fr</a></p>
+
+          <hr>
+
+          <!-- Statistiques -->
+          <div class="d-flex justify-content-around mb-3">
+            <div>
+              <h5 class="text-success mb-0">+120</h5>
+              <small>Trajets effectués</small>
+            </div>
+            <div>
+              <h5 class="text-info mb-0">4.8 ★</h5>
+              <small>Note moyenne</small>
+            </div>
+            <div>
+              <h5 class="text-warning mb-0">35 €</h5>
+              <small>Solde du porte-monnaie</small>
+            </div>
+          </div>
+
+          <hr>
+          <div class="d-grid gap-2 mt-3">
+            <a href="#" class="btn btn-outline-primary btn-sm">Mode passager</a>
+            <a href="{{ path('app_logout') }}" class="btn btn-outline-secondary btn-sm">Déconnexion</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Contenu principal -->
+    <div class="col-md-8">
+
+      <!-- Section Mes Voitures -->
+      <div class="card shadow-lg border-2 border-success mb-4">
+        <div class="card-header bg-light text-dark d-flex justify-content-between align-items-center border-bottom-0">
+          <h5 class="mb-0">🚘 Mes voitures</h5>
+          <button class="btn btn-primary btn-sm">+ Ajouter une voiture</button>
+        </div>
+        <div class="card-body">
+          <ul class="list-group">
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+              Peugeot 208 (Bleue)
+              <span class="badge bg-info">Immat. : AA-123-BB</span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+              Tesla Model 3 (Noire)
+              <span class="badge bg-info">Immat. : EV-456-ZZ</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Section Mes Trajets -->
+      <div class="card shadow-lg border-2 border-success mb-4">
+        <div class="card-header bg-light text-dark d-flex justify-content-between align-items-center border-bottom-0">
+          <h5 class="mb-0">🛣️ Mes trajets</h5>
+          <button class="btn btn-primary btn-sm">+ Ajouter un trajet</button>
+        </div>
+        <div class="card-body">
+          <div class="list-group">
+            <div class="list-group-item d-flex justify-content-between align-items-center">
+              <strong>Lille → Lyon</strong> — 05/11/2025 à 11h00  
+              <span class="badge bg-info">Places : 3</span>
+            </div>
+            <div class="list-group-item d-flex justify-content-between align-items-center">
+              <strong>Paris → Lille</strong> — 12/11/2025 à 08h30  
+              <span class="badge bg-info">Places : 2</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Section Historique -->
+      <div class="card shadow-lg border-2 border-success">
+        <div class="card-header bg-light text-dark border-0">
+          <h5 class="mb-0">💰 Historique des paiements</h5>
+        </div>
+        <div class="card-body">
+          <table class="table table-sm">
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Trajet</th>
+                <th>Montant</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>02/11/2025</td>
+                <td>Lille → Lyon</td>
+                <td>+ 25 €</td>
+              </tr>
+              <tr>
+                <td>28/10/2025</td>
+                <td>Paris → Lille</td>
+                <td>+ 30 €</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+{% endblock %}

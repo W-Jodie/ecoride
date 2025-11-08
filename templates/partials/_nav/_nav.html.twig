@@ -72,7 +72,7 @@
 					<ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userMenu">
 						{% if app.user %}
 							<li>
-								<a class="dropdown-item" href="#">Mon profil</a>
+								<a class="dropdown-item" href="{{ path('app_profile') }}">Mon profil</a>
 							</li>
 							<li>
 								<a class="dropdown-item" href="{{ path('app_logout') }}">Se déconnecter</a>
@@ -137,7 +137,7 @@ console.log(response.data);
 
   });
   }		
-	setInterval(getSolde, 1000);
+	setInterval(getSolde, 5000);
 
 	// // Initialiser les dropdowns Bootstrap
 	// document.addEventListener('DOMContentLoaded', function () {
