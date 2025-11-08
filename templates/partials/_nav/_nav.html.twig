@@ -1,149 +1,99 @@
 <nav class="navbar navbar-expand-lg bg-dark" data-bs-theme="dark">
-	<div
-		class="container">
+    <div class="container">
 
-		<!-- Logo EcoRide -->
-		<h1 class="d-flex align-items-center m-0" style="font-family:'Inder',sans-serif;font-size:50px;color:#293133;-webkit-text-stroke:.5px #01D758;">
-			<span class="eco me-2">Ec</span>
-			<a href="{{ path('app_home') }}">
-				<img src="{{ asset('assets/img/terre.webp') }}" alt="EcoRide Logo" style="height:60px;">
-			</a>
-			<span class="ride ms-2">Ride</span>
-		</h1>
 
-		<a class="navbar-brand" href="#"></a>
 
-		<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
-			<span class="navbar-toggler-icon"></span>
-		</button>
+            <!-- Logo EcoRide -->
+            <h1 class="d-flex align-items-center m-0" style="font-family:'Inder',sans-serif;font-size:50px;color:#293133;-webkit-text-stroke:.5px var(--bs-primary);">
+                <span class="eco me-2">Ec</span>
+                <a href="{{ path('app_home') }}">
+                    <img src="{{ asset('assets/img/terre.webp') }}" alt="EcoRide Logo" style="height:60px;">
+                </a>
+                <span class="ride ms-2">Ride</span>
+            </h1>
 
-		<div
-			class="collapse navbar-collapse" id="navbarColor02">
-			<!-- Liens de gauche -->
-			<ul class="navbar-nav me-auto">
-				<li class="nav-item">
-					<a class="nav-link active" href="#">
-						<span class="visually-hidden">(current)</span>
-					</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" href="{{ path('app_front_carpooling') }}">Accès aux covoiturages</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" href="{{ path('app_pages_contact') }}">Contact</a>
-				</li>
-			</ul>
+            <a class="navbar-brand" href="#"></a>
 
-			<!-- Zone à droite -->
-			<ul class="navbar-nav ms-auto d-flex align-items-center">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
 
-				{% if app.user and app.user.wallet %}
-					<!-- Wallet utilisateur -->
-					<li class="nav-item me-5 text-white">
-						<div class="d-flex flex-column text-end">
-							<span id="soldeUser" class="fw-bold">
-								💰
-								
-							</span>
-							<small class="text-muted">
-								En attente :
-								{{ app.user.wallet.pendingCredit|number_format(2, ',', ' ') }}
-								€
-							</small>
-						</div>
-					</li>
-				{% endif %}
+            <div
+                class="collapse navbar-collapse" id="navbarColor02">
+                <!-- Liens de gauche -->
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#">
+                            <span class="visually-hidden">(current)</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{path('app_front_carpooling')}}">Accès aux covoiturages</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{path ('app_pages_contact')}}">Contact</a>
+                    </li>
+                </ul>
 
-				<!-- Menu utilisateur -->
-				<li class="nav-item dropdown">
-					<a class="nav-link dropdown-toggle p-0" href="#" id="userMenu" data-bs-toggle="dropdown" data-bs-display="static" data-bs-offset="0,8" aria-expanded="false">
-						<svg class="icon-eco" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 83 83" width="28" height="28" fill="none" aria-hidden="true" focusable="false" preserveaspectratio="xMidYMid meet">
-							<g clip-path="url(#clip0_91_22)">
-								<path d="M57.0625 31.125C57.0625 35.2524 55.4229 39.2108 52.5044 42.1294C49.5858 45.0479 45.6274 46.6875 41.5 46.6875C37.3726 46.6875 33.4142 45.0479 30.4957 42.1294C27.5771 39.2108 25.9375 35.2524 25.9375 31.125C25.9375 26.9976 27.5771 23.0392 30.4957 20.1207C33.4142 17.2021 37.3726 15.5625 41.5 15.5625C45.6274 15.5625 49.5858 17.2021 52.5044 20.1207C55.4229 23.0392 57.0625 26.9976 57.0625 31.125Z" fill="#01D758"/>
-								<path fill-rule="evenodd" clip-rule="evenodd" d="M0 41.5C0 30.4935 4.37231 19.9378 12.1551 12.1551C19.9378 4.37231 30.4935 0 41.5 0C52.5065 0 63.0622 4.37231 70.8449 12.1551C78.6277 19.9378 83 30.4935 83 41.5C83 52.5065 78.6277 63.0622 70.8449 70.8449C63.0622 78.6277 52.5065 83 41.5 83C30.4935 83 19.9378 78.6277 12.1551 70.8449C4.37231 63.0622 0 52.5065 0 41.5ZM41.5 5.1875C34.6617 5.18786 27.9625 7.11913 22.1735 10.759C16.3844 14.3989 11.7408 19.5995 8.77706 25.7621C5.81335 31.9248 4.65 38.7991 5.42093 45.5938C6.19185 52.3884 8.86571 58.8273 13.1348 64.1694C16.8179 58.2349 24.9259 51.875 41.5 51.875C58.0741 51.875 66.1769 58.2297 69.8652 64.1694C74.1343 58.8273 76.8082 52.3884 77.5791 45.5938C78.35 38.7991 77.1867 31.9248 74.2229 25.7621C71.2592 19.5995 66.6156 14.3989 60.8265 10.759C55.0375 7.11913 48.3383 5.18786 41.5 5.1875Z" fill="#01D758"/>
-							</g>
-							<defs>
-								<clipPath id="clip0_91_22"><rect width="83" height="83" fill="white"/></clipPath>
-							</defs>
-						</svg>
-						<span class="visually-hidden">Menu utilisateur</span>
-					</a>
+                <!-- DROITE : mets le dropdown dans son propre UL aligné à droite -->
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle p-0" href="#" id="userMenu"
+   data-bs-toggle="dropdown"
+   data-bs-display="static"
+   data-bs-offset="0,8"
+   aria-expanded="false">
+                            <svg class="icon-eco" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 83 83" width="28" height="28" fill="none" aria-hidden="true" focusable="false" preserveaspectratio="xMidYMid meet">
+                                <g clip-path="url(#clip0_91_22)">
+                                    <path d="M57.0625 31.125C57.0625 35.2524 55.4229 39.2108 52.5044 42.1294C49.5858 45.0479 45.6274 46.6875 41.5 46.6875C37.3726 46.6875 33.4142 45.0479 30.4957 42.1294C27.5771 39.2108 25.9375 35.2524 25.9375 31.125C25.9375 26.9976 27.5771 23.0392 30.4957 20.1207C33.4142 17.2021 37.3726 15.5625 41.5 15.5625C45.6274 15.5625 49.5858 17.2021 52.5044 20.1207C55.4229 23.0392 57.0625 26.9976 57.0625 31.125Z" fill="var(--bs-primary)"/>
+                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M0 41.5C0 30.4935 4.37231 19.9378 12.1551 12.1551C19.9378 4.37231 30.4935 0 41.5 0C52.5065 0 63.0622 4.37231 70.8449 12.1551C78.6277 19.9378 83 30.4935 83 41.5C83 52.5065 78.6277 63.0622 70.8449 70.8449C63.0622 78.6277 52.5065 83 41.5 83C30.4935 83 19.9378 78.6277 12.1551 70.8449C4.37231 63.0622 0 52.5065 0 41.5ZM41.5 5.1875C34.6617 5.18786 27.9625 7.11913 22.1735 10.759C16.3844 14.3989 11.7408 19.5995 8.77706 25.7621C5.81335 31.9248 4.65 38.7991 5.42093 45.5938C6.19185 52.3884 8.86571 58.8273 13.1348 64.1694C16.8179 58.2349 24.9259 51.875 41.5 51.875C58.0741 51.875 66.1769 58.2297 69.8652 64.1694C74.1343 58.8273 76.8082 52.3884 77.5791 45.5938C78.35 38.7991 77.1867 31.9248 74.2229 25.7621C71.2592 19.5995 66.6156 14.3989 60.8265 10.759C55.0375 7.11913 48.3383 5.18786 41.5 5.1875Z" fill="#01D758"/>
+                                </g>
+                                <defs>
+                                    <clipPath id="clip0_91_22"><rect width="83" height="83" fill="white"/></clipPath>
+                                </defs>
+                            </svg>
+                            <span class="visually-hidden">Menu utilisateur</span>
+                        </a>
 
-					<ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userMenu">
-						{% if app.user %}
-							<li>
-								<a class="dropdown-item" href="#">Mon profil</a>
-							</li>
-							<li>
-								<a class="dropdown-item" href="{{ path('app_logout') }}">Se déconnecter</a>
-							</li>
-							<li><hr class="dropdown-divider"></li>
-							<li>
-								<a class="dropdown-item" href="{{ path('app_pages_contact') }}">Contact</a>
-							</li>
-						{% else %}
-							<li>
-								<a class="dropdown-item" href="{{ path('app_login') }}">Se connecter</a>
-							</li>
-							<li>
-								<a class="dropdown-item" href="{{ path('app_register') }}">S'inscrire</a>
-							</li>
-							<li><hr class="dropdown-divider"></li>
-							<li>
-								<a class="dropdown-item" href="{{ path('app_pages_contact') }}">Contact</a>
-							</li>
-						{% endif %}
-					</ul>
-				</li>
-			</ul>
-		</div>
-	</div>
+                        <!-- Aligné à droite -->
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userMenu">
+                        {% if app.user %}
+                          <li>
+                            <a class="dropdown-item" href="#">Mon profil</a>
+                          </li>
+                          <li>
+                            <a class="dropdown-item" href="{{ path('app_logout') }}">Se déconnecter</a>  
+                          </li>
+                        {%else%}
+                          <li>
+                            <a class="dropdown-item" href="{{ path('app_login') }}">Se connecter</a>
+                          </li>
+                          <li>
+                            <a class="dropdown-item" href="{{ path('app_register') }}">S'inscrire</a>
+                          </li>
+                          
+                            <li><hr class="dropdown-divider"></li>
+                            {% endif %}
+                            <li>
+                                <a class="dropdown-item" href="{{path ('app_pages_contact')}}">Contact</a>
+                            </li>
+
+                        </ul>
+                    </li>
+                </ul>
+                <!-- /droite -->
+            </div>
+        </div>
 </nav>
 
-<!-- Style pour aligner le menu -->
+<!-- Petit correctif si ton thème Bootswatch “force” la position -->
 <style>
-	.navbar .dropdown-menu-end[data-bs-popper] {
-		right: 0 !important;
-		left: auto !important;
-		transform: translateY(0.125rem) !important;
-	}
+    .navbar .dropdown-menu-end[data-bs-popper] {
+        right: 0 !important;
+        left: auto !important;
+        transform: translateY(0.125rem) !important; /* en-dessous du bouton */
+    }
 </style>
-
 {% if app.user and not app.user.isVerified %}
-	<div class="container w-100 mt-2">
-		<div class="alert alert-warning text-center p-2">
-			⚠️ Votre compte n'est pas encore activé. Veuillez contacter l'administrateur.
-		</div>
-	</div>
-{% endif %}
-
- <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-
-
-<script>
-	// GET request for remote image in node.js
-	function getSolde() {
-axios({
-  method: 'get',
-url: 'http://127.0.0.1:8000/api/user/balance',
-
-
-})
-  .then(function (response) {
-   solde => response.data;
-console.log(response.data);	
-   const soldeUser = document.getElementById('soldeUser');
-   soldeUser.innerHTML = `💰 ${response.data.credit.toFixed(2).replace('.', ',')} €`
-
-  });
-  }		
-	setInterval(getSolde, 1000);
-
-	// // Initialiser les dropdowns Bootstrap
-	// document.addEventListener('DOMContentLoaded', function () {
-    // const soldeUser = document.getElementById('soldeUser')
-
-	
-	// });
-
-</script>
+<div class="container w-100"><span class="bg-warning">Votre compte n'est activer</span></div>
+{%endif%}

@@ -1,4 +1,4 @@
-<div class="card shadow h-100">
+<div class="card shadow h-100 card-ecoride">
           <div class="card-body d-flex flex-column">
             <div class="d-flex justify-content-between align-items-start mb-2">
               <h5 class="card-title mb-0"> Jodie Wattez</h5>
@@ -20,3 +20,27 @@
             </div>
           </div>
         </div>
+<style>
+  .card-ecoride {
+  border: 2px solid transparent;
+  border-radius: 1rem;
+  transition: all 0.3s ease-in-out;
+  background-color: var(--bs-light); /* reste cohérent avec ton thème Bootswatch */
+}
+
+.card-ecoride:hover {
+  border-color: var(--bs-primary); /* couleur principale du thème Bootswatch */
+  transform: translateY(-5px) scale(1.03);
+  box-shadow: 0 1rem 1.5rem rgba(0, 0, 0, 0.15);
+}
+
+/* Bonus : petit effet lumineux vert au survol */
+.card-ecoride:hover::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 1rem;
+  box-shadow: 0 0 20px rgba(1, 215, 88, 0.3);
+  pointer-events: none;
+}
+</style>

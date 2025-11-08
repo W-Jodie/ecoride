@@ -5,10 +5,12 @@
         note: 4,
         date_depart: '12/11/2025',
         heure_depart: '08:30',
+        ville_depart: 'Paris',
         places: 3,
         eco: true,
         date_arrivee: '12/11/2025',
         heure_arrivee: '10:00',
+        ville_arrivee: 'Orléans',
         prix: 25,
         sexe: 'M'
     },
@@ -18,10 +20,12 @@
         note: 5,
         date_depart: '13/11/2025',
         heure_depart: '09:00',
+        ville_depart: 'Marseille',
         places: 2,
         eco: false,
         date_arrivee: '13/11/2025',
         heure_arrivee: '11:15',
+        ville_arrivee: 'Aix-en-Provence',
         prix: 30,
         sexe: 'F'
     },
@@ -31,10 +35,12 @@
         note: 3,
         date_depart: '14/11/2025',
         heure_depart: '07:15',
+        ville_depart: 'Bordeaux',
         places: 4,
         eco: true,
         date_arrivee: '14/11/2025',
         heure_arrivee: '09:45',
+        ville_arrivee: 'Toulouse',
         prix: 20,
         sexe: 'M'
     },
@@ -44,10 +50,12 @@
         note: 5,
         date_depart: '15/11/2025',
         heure_depart: '18:00',
+        ville_depart: 'Nice',
         places: 1,
         eco: true,
         date_arrivee: '15/11/2025',
         heure_arrivee: '20:30',
+        ville_arrivee: 'Cannes',
         prix: 35,
         sexe: 'F'
     }
@@ -56,7 +64,7 @@
 {% for trajet in trajets %}
 
 <div class="container my-4">
-      <div class="row border rounded shadow-sm p-3 {{ trajet.eco ? 'bg-success bg-opacity-25' : 'bg-light'   }}">
+      <div class="row border rounded shadow-sm p-3 {{ trajet.eco ? 'bg-primary bg-opacity-25' : 'bg-info bg-opacity-25' }}">
                 <!-- Colonne 1 -->
         <div class="col-md-3 text-center">
           <img
@@ -77,21 +85,21 @@
         <!-- Colonne 2 -->
         <div class="col-md-4">
           <div class="d-flex flex-column gap-2">
-            <div class="p-2 border rounded bg-success text-center shadow bg-opacity-25">
-              <strong>Date de départ</strong><br />
-              <small>{{trajet.date_depart}}</small>
+            <div class="p-2 border rounded bg-light text-center shadow bg-opacity-25">
+              <strong>Date et heure de départ</strong><br />
+              <small>{{trajet.date_depart}}<br>{{trajet.heure_depart}}</small>
             </div>
-            <div class="p-2 border rounded bg-success text-center shadow bg-opacity-25">
-              <strong>Heure de départ</strong><br />
-              <small>{{trajet.heure_depart}}</small>
+            <div class="p-2 border rounded bg-light text-center shadow bg-opacity-25">
+              <strong>Ville de départ</strong><br />
+              <small>{{trajet.ville_depart}}</small>
             </div>
-            <div class="p-2 border rounded bg-success text-center shadow bg-opacity-25">
+            <div class="p-2 border rounded bg-light text-center shadow bg-opacity-25">
               <strong>Nombre de places</strong><br />
               <small>{{trajet.places}}</small>
             </div>
-            <div class="p-2 border rounded bg-success text-center shadow bg-opacity-25">
+            <div class="p-2 border rounded bg-light text-center shadow bg-opacity-25">
               <strong>Type</strong><br />
-              <span class="badge rounded-pill border-0 {{trajet.eco ? ' bg-success ' : ' bg-light'}}">{{trajet.eco ? 'Ecologique' : 'Standard'}}</span>
+              <span class="badge rounded-pill border-0 {{trajet.eco ? ' bg-primary ' : ' bg-light'}}">{{trajet.eco ? 'Ecologique' : 'Standard'}}</span>
             </div>
           </div>
         </div>
@@ -99,15 +107,15 @@
         <!-- Colonne 3 -->
         <div class="col-md-5">
           <div class="d-flex flex-column gap-2">
-            <div class="p-2 border rounded bg-success text-center shadow bg-opacity-25">
-              <strong>Date d’arrivée</strong><br />
-              <small>{{trajet.date_arrivee}}</small>
+            <div class="p-2 border rounded bg-light text-center shadow bg-opacity-25">
+              <strong>Date et heure d’arrivée</strong><br />
+              <small>{{trajet.date_arrivee}}<br>{{trajet.heure_arrivee}}  </small>
             </div>
-            <div class="p-2 border rounded bg-success text-center shadow bg-opacity-25">
-              <strong>Heure d’arrivée</strong><br />
-              <small>{{trajet.heure_arrivee}}</small>
+            <div class="p-2 border rounded bg-light text-center shadow bg-opacity-25">
+              <strong>Ville d’arrivée</strong><br />
+              <small>{{trajet.ville_arrivee}}</small>
             </div>
-            <div class="p-2 border rounded bg-success text-center shadow bg-opacity-25">
+            <div class="p-2 border rounded bg-light text-center shadow bg-opacity-25">
               <strong>Prix</strong><br />
               <small>{{trajet.prix}} €</small>
             </div>

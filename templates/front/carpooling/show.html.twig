@@ -7,8 +7,8 @@
     'conducteur': 'Ahmed',
     'photo': 'https://via.placeholder.com/120',
     'note': 4,
-    'villeDepart': 'Lille',
-    'villeArrivee': 'Paris',
+    'ville_depart': 'Lille',
+    'ville_arrivee': 'Paris',
     'date_depart': '12/11/2025',
     'heure_depart': '08:30',
     'places': 3,
@@ -21,18 +21,31 @@
 } %}
 
 
- <div class="container-fluid text-center mb-4 bg-light py-5">
- <div class="container py-4">
-    <h1 class="fw-bold text-success">Détails du trajet</h1>
-    <p class="text-muted">Découvrez toutes les informations sur ce trajet éco-responsable 🌱</p>
+<div class="container-fluid text-center mb-4 position-relative py-5" 
+     style="background-image: url('{{ asset('assets/img/car-pa.jpg') }}'); 
+            background-size: cover; 
+            background-position: center; 
+            background-repeat: no-repeat;">
+  
+  <!-- Overlay semi-transparent -->
+  <div class="position-absolute top-0 start-0 w-100 h-100" 
+       style="background-color: rgba(0,0,0,0.5);"></div>
+
+  <!-- Contenu centré -->
+  <div class="container position-relative lead text-light w-75 mx-auto mb-4">
+    <h1 class="fw-bold text-white">Détails du trajet</h1>
+    <p class="text-light opacity-90">
+      Découvrez toutes les informations sur ce trajet éco-responsable 🌱
+    </p>
   </div>
-  </div>
+</div>
+
 <div class="container my-5">
   <!-- En-tête -->
  
 
   <!-- Carte principale -->
-  <div class="card shadow-lg border-0 {{ trajet.eco ? 'bg-success bg-opacity-25' : 'bg-light' }}">
+  <div class="card shadow-lg border-0 {{ trajet.eco ? 'bg-primary bg-opacity-25' : 'bg-info bg-opacity-25' }}">
     <div class="card-body">
       <div class="row align-items-center">
         
@@ -50,7 +63,7 @@
             <i class="bi bi-star-half"></i>
             <i class="bi bi-star"></i>
           </div>
-          <span class="badge rounded-pill {{ trajet.eco ? 'bg-success' : 'bg-secondary' }}">
+          <span class="badge rounded-pill {{trajet.eco ? ' bg-primary ' : ' bg-light'}}">
             {{ trajet.eco ? 'Trajet écologique' : 'Trajet standard' }}
           </span>
         </div>
@@ -61,14 +74,14 @@
             <div class="col-md-6">
               <div class="p-3 border rounded bg-white shadow-sm">
                 <strong>Départ :</strong>
-                <p class="mb-0">{{ trajet.villeDepart }}</p>
+                <p class="mb-0">{{ trajet.ville_depart }}</p>
                 <small>{{ trajet.date_depart }} à {{ trajet.heure_depart }}</small>
               </div>
             </div>
             <div class="col-md-6">
               <div class="p-3 border rounded bg-white shadow-sm">
                 <strong>Arrivée :</strong>
-                <p class="mb-0">{{ trajet.villeArrivee }}</p>
+                <p class="mb-0">{{ trajet.ville_arrivee }}</p>
                 <small>{{ trajet.date_arrivee }} à {{ trajet.heure_arrivee }}</small>
               </div>
             </div>
@@ -91,7 +104,7 @@
             <a href="{{path('app_front_carpooling')}}" class="btn btn-outline-secondary">
               ← Retour aux trajets
             </a>
-            <button class="btn btn-success">
+            <button class="btn btn-primary">
               Réserver ce trajet
             </button>
           </div>
@@ -102,16 +115,16 @@
 
   <!-- Section infos supplémentaires -->
   <div class="mt-5">
-    <h3 class="text-success">Informations complémentaires</h3>
+    <h3 class="text-info">Informations complémentaires</h3>
     <p class="text-muted">
       Ce trajet est proposé par <strong>{{ trajet.conducteur }}</strong>. 
       Il/elle privilégie les trajets {{ trajet.eco ? 'éco-responsables' : 'classiques' }},
       et veille à offrir une expérience de covoiturage conviviale et respectueuse de l’environnement.
     </p>
     <ul class="list-unstyled">
-      <li><i class="bi bi-car-front-fill text-success me-2"></i>Type de véhicule : {{ trajet.voiture|default('Non précisé') }}</li>
-      <li><i class="bi bi-fuel-pump text-success me-2"></i>Consommation estimée : {{ trajet.consommation|default('—') }}</li>
-      <li><i class="bi bi-people-fill text-success me-2"></i>Places disponibles : {{ trajet.places }}</li>
+      <li><i class="bi bi-car-front-fill text-info me-2"></i>Type de véhicule : {{ trajet.voiture|default('Non précisé') }}</li>
+      <li><i class="bi bi-fuel-pump text-info me-2"></i>Consommation estimée : {{ trajet.consommation|default('—') }}</li>
+      <li><i class="bi bi-people-fill text-info me-2"></i>Places disponibles : {{ trajet.places }}</li>
     </ul>
   </div>
 </div>
