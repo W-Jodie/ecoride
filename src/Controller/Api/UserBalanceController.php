@@ -18,6 +18,6 @@ final class UserBalanceController extends AbstractController
             'credit' => $wallet->getCredit(),
             // 'pendingCredit' => $wallet->getPendingCredit(),
         ];
-        return $this->json($walletData, 200, ['groups' => 'wallet:read'], []);
+        return $this->json($walletData, 200, [], []);
     }
 }
