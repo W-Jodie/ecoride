@@ -69,35 +69,35 @@
 						<span class="visually-hidden">Menu utilisateur</span>
 					</a>
 
-					<ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userMenu">
-						{% if app.user %}
-							<li>
-								<a class="dropdown-item" href="{{ path('app_profile') }}">Mon profil</a>
-							</li>
-							<li>
-								<a class="dropdown-item" href="{{ path('app_logout') }}">Se déconnecter</a>
-							</li>
-							<li><hr class="dropdown-divider"></li>
-							<li>
-								<a class="dropdown-item" href="{{ path('app_pages_contact') }}">Contact</a>
-							</li>
-						{% else %}
-							<li>
-								<a class="dropdown-item" href="{{ path('app_login') }}">Se connecter</a>
-							</li>
-							<li>
-								<a class="dropdown-item" href="{{ path('app_register') }}">S'inscrire</a>
-							</li>
-							<li><hr class="dropdown-divider"></li>
-							<li>
-								<a class="dropdown-item" href="{{ path('app_pages_contact') }}">Contact</a>
-							</li>
-						{% endif %}
-					</ul>
-				</li>
-			</ul>
-		</div>
-	</div>
+                        <!-- Aligné à droite -->
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userMenu">
+                        {% if app.user %}
+                          <li>
+                            <a class="dropdown-item" href="#">Mon profil</a>
+                          </li>
+                          <li>
+                            <a class="dropdown-item" href="{{ path('app_logout') }}">Se déconnecter</a>  
+                          </li>
+                        {%else%}
+                          <li>
+                            <a class="dropdown-item" href="{{ path('app_login') }}">Se connecter</a>
+                          </li>
+                          <li>
+                            <a class="dropdown-item" href="{{ path('app_register') }}">S'inscrire</a>
+                          </li>
+                          
+                            <li><hr class="dropdown-divider"></li>
+                            {% endif %}
+                            <li>
+                                <a class="dropdown-item" href="{{path ('app_pages_contact')}}">Contact</a>
+                            </li>
+
+                        </ul>
+                    </li>
+                </ul>
+                <!-- /droite -->
+            </div>
+        </div>
 </nav>
 
 <!-- Style pour aligner le menu -->
@@ -110,40 +110,5 @@
 </style>
 
 {% if app.user and not app.user.isVerified %}
-	<div class="container w-100 mt-2">
-		<div class="alert alert-warning text-center p-2">
-			⚠️ Votre compte n'est pas encore activé. Veuillez contacter l'administrateur.
-		</div>
-	</div>
-{% endif %}
-
- <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-
-
-<script>
-	// GET request for remote image in node.js
-	function getSolde() {
-axios({
-  method: 'get',
-url: 'http://127.0.0.1:8000/api/user/balance',
-
-
-})
-  .then(function (response) {
-   solde => response.data;
-console.log(response.data);	
-   const soldeUser = document.getElementById('soldeUser');
-   soldeUser.innerHTML = `💰 ${response.data.credit.toFixed(2).replace('.', ',')} €`
-
-  });
-  }		
-	setInterval(getSolde, 5000);
-
-	// // Initialiser les dropdowns Bootstrap
-	// document.addEventListener('DOMContentLoaded', function () {
-    // const soldeUser = document.getElementById('soldeUser')
-
-	
-	// });
-
-</script>
+<div class="container w-100"><span class="bg-warning">Votre compte n'est activer</span></div>
+{%endif%}
