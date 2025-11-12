@@ -21,7 +21,7 @@ class ProfileController extends AbstractController
         $user = $this->getUser();
 
         // Récupération des voitures de l'utilisateur
-        $cars = $carRepository->findBy(['user' => $user]);
+        $cars = $carRepository->findBy(['owner' => $user]);
 
         // Récupération des trajets de l'utilisateur
         // $trips = $tripRepository->findBy(['driver' => $user]);
@@ -29,7 +29,7 @@ class ProfileController extends AbstractController
         // Récupération du wallet
         $wallet = $walletRepository->findOneBy(['user' => $user]);
 
-        return $this->render('profile/index.html.twig', [
+        return $this->render('pages/profile/index.html.twig', [
             'user' => $user,
             'cars' => $cars,
             // 'trips' => $trips,

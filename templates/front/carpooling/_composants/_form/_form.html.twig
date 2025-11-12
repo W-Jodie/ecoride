@@ -36,7 +36,7 @@
       <label for="trajetEco" class="form-label mt-3">Trajet écologique</label>
       <div class="form-check form-switch m-2">
                       <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" checked="">
-                      <label class="form-check-label" for="flexSwitchCheckChecked">Ecologique</label>
+                      <label class="form-check-label" for="flexSwitchCheckChecked" id="isEcoLabel">Ecologique</label>
                     </div>
     </div>
 
@@ -52,3 +52,16 @@
 
 </div>
 </div>
+<script>
+const flexSwitchCheckChecked = document.getElementById('flexSwitchCheckChecked');
+const isEcoLabel = document.getElementById('isEcoLabel');
+flexSwitchCheckChecked.addEventListener('change', function() {
+    if(this.checked) {
+        isEcoLabel.textContent = 'Ecologique';
+    } else {
+          isEcoLabel.textContent = 'Non Ecologique';
+
+    }
+});
+
+</script>

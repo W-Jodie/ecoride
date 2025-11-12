@@ -16,7 +16,7 @@ final class UserBalanceController extends AbstractController
         $wallet = $wallets->findOneBy(['user' => $user]) ;
         $walletData = [
             'credit' => $wallet->getCredit(),
-            // 'pendingCredit' => $wallet->getPendingCredit(),
+            'pendingCredit' => $wallet->getPendingCredit(),
         ];
         return $this->json($walletData, 200, [], []);
     }

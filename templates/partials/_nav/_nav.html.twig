@@ -45,10 +45,8 @@
 								💰
 								
 							</span>
-							<small class="text-muted">
-								En attente :
-								{{ app.user.wallet.pendingCredit|number_format(2, ',', ' ') }}
-								€
+							<small class="text-muted" id="pendingCredit">
+								
 							</small>
 						</div>
 					</li>
@@ -131,13 +129,14 @@ url: 'http://127.0.0.1:8000/api/user/balance',
 })
   .then(function (response) {
    solde => response.data;
-console.log(response.data);	
    const soldeUser = document.getElementById('soldeUser');
+   const pendingCredit = document.getElementById('pendingCredit');
    soldeUser.innerHTML = `💰 ${response.data.credit.toFixed(2).replace('.', ',')} €`
+   pendingCredit.innerHTML = `En attente : ${response.data.pendingCredit.toFixed(2).replace('.', ',')} €`
 
   });
   }		
-	setInterval(getSolde, 5000);
+	setInterval(getSolde, 1000);
 
 	// // Initialiser les dropdowns Bootstrap
 	// document.addEventListener('DOMContentLoaded', function () {

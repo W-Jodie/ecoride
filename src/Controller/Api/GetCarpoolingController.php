@@ -13,11 +13,10 @@ final class GetCarpoolingController extends AbstractController
     public function index(CarpoolingRepository $carpooling): Response
     {
         $carpoolings = $carpooling->findAll();
-        dd($carpoolings);
-
-        
-        
-
+        if (!$carpoolings) {
+            return $this->json(['message' => 'No carpooling found'], 404);
+        }
+        return $this->json($carpoolings, 200, [], ['groups' => 'carpooling:read']);
       
         
     }

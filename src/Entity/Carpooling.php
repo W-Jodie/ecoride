@@ -6,6 +6,7 @@ use App\Repository\CarpoolingRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: CarpoolingRepository::class)]
 class Carpooling
@@ -16,11 +17,13 @@ class Carpooling
     private ?int $id = null;
 
     #[ORM\ManyToOne(inversedBy: 'carpoolings')]
+    #[Groups(['carpooling:read'])]
     #[ORM\JoinColumn(nullable: false)]
     private ?Car $car = null;
 
     #[ORM\ManyToOne(inversedBy: 'carpoolings')]
     #[ORM\JoinColumn(nullable: false)]
+    #[Groups(['carpooling:read'])]
     private ?User $driver = null;
 
     /**
@@ -30,21 +33,27 @@ class Carpooling
     private Collection $passenger;
 
     #[ORM\Column(length: 50)]
+    #[Groups(['carpooling:read'])]
     private ?string $departure = null;
 
     #[ORM\Column(length: 50)]
+    #[Groups(['carpooling:read'])]
     private ?string $arrival = null;
 
     #[ORM\Column]
+    #[Groups(['carpooling:read'])]
     private ?\DateTimeImmutable $departureAt = null;
 
     #[ORM\Column]
+    #[Groups(['carpooling:read'])]
     private ?\DateTimeImmutable $arrivalAt = null;
 
     #[ORM\Column]
+    #[Groups(['carpooling:read'])]
     private ?float $price = null;
 
     #[ORM\Column]
+    #[Groups(['carpooling:read'])]
     private ?bool $isEcoTrip = null;
 
     /**
@@ -54,6 +63,7 @@ class Carpooling
     private Collection $reservations;
 
     #[ORM\Column(length: 20)]
+    #[Groups(['carpooling:read'])]
     private ?string $status = null;
 
     /**
