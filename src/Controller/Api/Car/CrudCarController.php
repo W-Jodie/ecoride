@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Attribute\Route;
 
-class AddCarController extends AbstractController
+class CrudCarController extends AbstractController
 {
     #[Route('/api/car', name: 'api_car_add', methods: ['POST'])]
     public function addCar(Request $request, EntityManagerInterface $em): JsonResponse
@@ -39,6 +39,7 @@ class AddCarController extends AbstractController
         $car->setLicensePlate($data['licensePlate']);
         $car->setOwner($user);
         $car->setIsElectric((bool)$data['isElectric']);
+        $car->setIsActive(true);
 
         // Sauvegarde en base
         $em->persist($car);
@@ -50,4 +51,26 @@ class AddCarController extends AbstractController
             'carId' => $car->getId()
         ], 201);
     }
+    #[Route('/api/car/{id}', name: 'api_car_delete', methods: ['DELETE'])]
+    public function deleteCar(int $id, EntityManagerInterface $em): JsonResponse
+    {
+        $car = $em->getRepository(Car::class)->find($id);
+
+        if (!$car) {
+            return new JsonResponse([
+                'success' => false,
+                'error' => 'Voiture introuvable'
+            ], 404);
+        }
+
+        $car->setIsActive(false);
+        $em->persist($car);
+        $em->flush();
+
+        return new JsonResponse([
+            'success' => true,
+            'message' => 'Voiture supprimée avec succès'
+        ], 200);
+    }
+
 }

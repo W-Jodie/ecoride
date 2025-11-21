@@ -17,7 +17,7 @@ final class CarController extends AbstractController
             return $this->json(['message' => 'Unauthorized'], 401);
         }
 
-        $car = $carRepository->findBy(['owner' => $user]);
+        $car = $carRepository->findBy(['owner' => $user, 'isActive' => true]);
 
         if (!$car) {
             return $this->json(['message' => 'Aucune voiture trouvée pour cet utilisateur'], 200);

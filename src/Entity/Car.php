@@ -44,6 +44,9 @@ class Car
     #[ORM\OneToMany(targetEntity: Carpooling::class, mappedBy: 'car')]
     private Collection $carpoolings;
 
+    #[ORM\Column]
+    private ?bool $isActive = null;
+
     public function __construct()
     {
         $this->carpoolings = new ArrayCollection();
@@ -140,6 +143,18 @@ class Car
                 $carpooling->setCar(null);
             }
         }
+
+        return $this;
+    }
+
+    public function isActive(): ?bool
+    {
+        return $this->isActive;
+    }
+
+    public function setIsActive(bool $isActive): static
+    {
+        $this->isActive = $isActive;
 
         return $this;
     }
