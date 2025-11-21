@@ -12,7 +12,7 @@ final class CarController extends AbstractController
     #[Route('/api/profile/car', name: 'app_api_profile_car', methods: ['GET'])]
     public function index(CarRepository $carRepository): Response
     { 
-        $user = 2;
+        $user = $this->getUser();
         if (!$user) {
             return $this->json(['message' => 'Unauthorized'], 401);
         }
@@ -20,7 +20,7 @@ final class CarController extends AbstractController
         $car = $carRepository->findBy(['owner' => $user]);
 
         if (!$car) {
-            return $this->json(['message' => 'Aucune voiture trouvée pour cet utilisateur'], 404);
+            return $this->json(['message' => 'Aucune voiture trouvée pour cet utilisateur'], 200);
         }
 
         return $this->json($car, 200, [], ['groups' => 'car:read']);

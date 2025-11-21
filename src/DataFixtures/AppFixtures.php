@@ -3,6 +3,7 @@
 namespace App\DataFixtures;
 
 use App\Entity\User;
+use App\Entity\Reservation;
 use App\Entity\Car;
 use App\Entity\Carpooling;
 use App\Entity\Wallet;
@@ -27,6 +28,7 @@ class AppFixtures extends Fixture
 
         $users = [];
         $cars = [];
+        $carpoolings = [];
 
         // 🧍 20 Utilisateurs + Wallet
         for ($i = 1; $i <= 20; $i++) {
@@ -64,7 +66,6 @@ class AppFixtures extends Fixture
             $cars[] = $car;
         }
 
-        // 🚘 20 Covoiturages (dont 10 éco)
         for ($i = 1; $i <= 20; $i++) {
             $carpooling = new Carpooling();
             $carpooling->setCar($faker->randomElement($cars));
@@ -82,8 +83,32 @@ class AppFixtures extends Fixture
             $carpooling->setIsEcoTrip($i <= 10); // Les 10 premiers sont éco
 
             $manager->persist($carpooling);
+            $carpoolings[] = $carpooling;
         }
 
-        $manager->flush();
-    }
+        // 🧾 40 Réservations (passager différent du conducteur)
+        foreach (range(1, 40) as $i) {
+            $reservation = new Reservation();
+
+            $carpooling = $faker->randomElement($carpoolings);
+
+            $driver = $carpooling->getDriver();
+
+            $passenger = $faker->randomElement(
+                array_filter($users, fn($u) => $u !== $driver)
+            );
+
+            $reservation->setDriver($driver);
+            $reservation->setPassenger($passenger);
+            $reservation->setCarpooling($carpooling);
+
+            $reservation->setTotalPrice($carpooling->getPrice());
+
+            $reservation->setStatus($faker->randomElement(['Confirmé', 'Terminé', 'Annulé']));
+
+            $manager->persist($reservation);
+                        }
+
+                $manager->flush();
+            }
 }

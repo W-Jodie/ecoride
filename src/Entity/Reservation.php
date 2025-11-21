@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\ReservationRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: ReservationRepository::class)]
 class Reservation
@@ -15,20 +16,25 @@ class Reservation
 
     #[ORM\ManyToOne(inversedBy: 'reservations')]
     #[ORM\JoinColumn(nullable: false)]
+    #[Groups(['account:read'])]
     private ?User $driver = null;
 
     #[ORM\ManyToOne(inversedBy: 'reservations')]
     #[ORM\JoinColumn(nullable: false)]
+    #[Groups(['account:read'])]
     private ?User $passenger = null;
 
     #[ORM\ManyToOne(inversedBy: 'reservations')]
     #[ORM\JoinColumn(nullable: false)]
+    #[Groups(['account:read'])]
     private ?Carpooling $carpooling = null;
 
     #[ORM\Column]
+    #[Groups(['account:read'])]
     private ?float $totalPrice = null;
 
     #[ORM\Column(length: 20)]
+    #[Groups(['account:read'])]
     private ?string $status = null;
 
     public function getId(): ?int

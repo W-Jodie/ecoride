@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\CarpoolingRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 
@@ -33,23 +34,23 @@ class Carpooling
     private Collection $passenger;
 
     #[ORM\Column(length: 50)]
-    #[Groups(['carpooling:read', 'trip:read'])]
+    #[Groups(['carpooling:read', 'trip:read', 'account:read'])]
     private ?string $departure = null;
 
     #[ORM\Column(length: 50)]
-    #[Groups(['carpooling:read', 'trip:read'])]
+    #[Groups(['carpooling:read', 'trip:read', 'account:read'])]
     private ?string $arrival = null;
 
     #[ORM\Column]
-    #[Groups(['carpooling:read', 'trip:read'])]
+    #[Groups(['carpooling:read', 'trip:read', 'account:read'])]
     private ?\DateTimeImmutable $departureAt = null;
 
     #[ORM\Column]
-    #[Groups(['carpooling:read', 'trip:read'])]
+    #[Groups(['carpooling:read', 'trip:read', 'account:read'])]
     private ?\DateTimeImmutable $arrivalAt = null;
 
     #[ORM\Column]
-    #[Groups(['carpooling:read'])]
+    #[Groups(['carpooling:read', 'account:read'])]
     private ?float $price = null;
 
     #[ORM\Column]
@@ -71,6 +72,10 @@ class Carpooling
      */
     #[ORM\OneToMany(targetEntity: Comment::class, mappedBy: 'carpooling')]
     private Collection $comments;
+
+    #[Groups(['trip:read'])]
+    #[ORM\Column(type: Types::SMALLINT, nullable: true)]
+    private ?int $seats = null;
 
     public function __construct()
     {
@@ -272,6 +277,18 @@ class Carpooling
                 $comment->setCarpooling(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getSeats(): ?int
+    {
+        return $this->seats;
+    }
+
+    public function setSeats(?int $seats): static
+    {
+        $this->seats = $seats;
 
         return $this;
     }

@@ -1,4 +1,32 @@
-<div class="card shadow-lg border-2 border-success">
+<div class="card shadow-lg border-2 border-success" id="accountProfile">   
+</div>
+<script>
+  async function fetchAccountProfile() {
+    try {
+        const accountProfile = document.getElementById('accountProfile');
+        const url = '{{ path("app_api_profile_account_history") }}';
+
+        const response = await fetch(url);
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+
+        const accountData = await response.json();
+        //console.log(accountData);
+        let items = "";
+                accountData.forEach(account => {
+
+                    items += `
+                            <tbody>
+                    <tr>
+                        <td>${(account.carpooling.departureAt).replace("+00:00", "")}</td>
+                        <td>${account.carpooling.departure} → ${account.carpooling.arrival}</td>
+                        <td>${account.totalPrice}</td>
+                    </tr>
+                    </tbody>
+                    `;
+        });
+        accountProfile.innerHTML = `
         <div class="card-header bg-light text-dark border-0">
           <h5 class="mb-0">💰 Historique des paiements</h5>
         </div>
@@ -11,22 +39,21 @@
                 <th>Montant</th>
               </tr>
             </thead>
-            <tbody>
-              <tr>
-                <td>02/11/2025</td>
-                <td>Lille → Lyon</td>
-                <td>+ 25 €</td>
-              </tr>
-              <tr>
-                <td>28/10/2025</td>
-                <td>Paris → Lille</td>
-                <td>+ 30 €</td>
-              </tr>
-            </tbody>
+            ${items}
           </table>
         </div>
       </div>
 
     </div>
-  </div>
-</div>
+  </div>`
+
+
+    } catch (error) {
+        console.error('Fetch error:', error);
+    }
+}
+
+fetchAccountProfile();
+setInterval(fetchAccountProfile, 3000);
+
+</script>

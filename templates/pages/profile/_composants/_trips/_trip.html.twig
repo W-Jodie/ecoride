@@ -1,23 +1,45 @@
+<div class="card shadow-lg border-2 border-success mb-4">
+    <div class="card-header bg-light text-dark d-flex justify-content-between align-items-center border-bottom-0">
+        <h5 class="mb-0">🛣️ Mes trajets</h5>
+        <button class="btn btn-primary btn-sm">+ Ajouter un trajet</button>
+    </div>
 
-
-<div class="card shadow-lg border-2 border-success mb-4" id ="tripProfile">
-        
-      </div>
+    <div class="card-body">
+        <div class="list-group" id="tripList">
+            <!-- Le JS va injecter le contenu ici -->
+        </div>
+    </div>
+</div>
 <script>
-  async function fetchTripProfile() {
+async function fetchTripProfile() {
     try {
-        const carProfile = document.getElementById('tripProfile');
+        const tripList = document.getElementById('tripList');
         const url = '{{ path("app_api_profile_trip") }}';
 
         const response = await fetch(url);
-        if (!response.ok) {
-            throw new Error('Network response was not ok');
+        const tripData = await response.json();
+
+        // 🛑 Cas : aucun trajet (tableau vide)
+        if (Array.isArray(tripData) && tripData.length === 0) {
+            tripList.innerHTML = `
+                <div class="list-group-item text-muted">
+                    Vous n'avez pas encore de trajet.
+                </div>
+            `;
+            return;
         }
 
-        const tripData = await response.json();
-        console.log(tripData);
+        // 🛑 Cas : message
+        if (tripData.message) {
+            tripList.innerHTML = `
+                <div class="list-group-item text-muted">
+                    ${tripData.message}
+                </div>
+            `;
+            return;
+        }
 
-        // Construire les items dynamiques
+        // 🟢 Normal : tableau de trajets
         let items = "";
         tripData.forEach(trip => {
             const departure = new Date(trip.departureAt);
@@ -32,33 +54,23 @@
             const arrivalFormatted   = arrival.toLocaleString('fr-FR', options);
 
             items += `
-                    <div class="list-group-item d-flex justify-content-between align-items-center">
-                        <strong>${trip.departure} → ${trip.arrival}</strong>
-                        ${departureFormatted} → ${arrivalFormatted}
-
-                    <span class="badge bg-info">Places : 3</span>
+                <div class="list-group-item d-flex justify-content-between align-items-center">
+                    <div>
+                        <strong>${trip.departure} → ${trip.arrival}</strong><br>
+                        <small>${departureFormatted} → ${arrivalFormatted}</small>
+                    </div>
+                    <span class="badge bg-info">Places : ${trip.seats}</span>
                 </div>
             `;
         });
 
-        tripProfile.innerHTML = `
-            <div class="card-header bg-light text-dark d-flex justify-content-between align-items-center border-bottom-0">
-                <h5 class="mb-0">🛣️ Mes trajets</h5>
-                <button class="btn btn-primary btn-sm">+ Ajouter un trajet</button>
-            </div>
-            <div class="card-body">
-                <div class="list-group">
-                    ${items}
-                </div>
-            </div>
-        `;
+        tripList.innerHTML = items;
 
     } catch (error) {
-        console.error('Fetch error:', error);
+        console.error('Erreur fetchTripProfile:', error);
     }
 }
 
 fetchTripProfile();
-setInterval(fetchTripProfile, 3000);
-
+setInterval(fetchTripProfile, 30000);
 </script>

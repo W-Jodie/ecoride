@@ -12,7 +12,7 @@ final class ProfileController extends AbstractController
     #[Route('/api/profile', name: 'app_api_profile', methods: ['GET'])]
     public function index(UserRepository $userRepository): Response
     {
-            $user = 2;
+            $user = 22;
                 if (!$user) {
                 return $this->json(['message' => 'No user found'], 404);
         }
