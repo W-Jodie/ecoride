@@ -1,20 +1,64 @@
 
 
-<div class="card shadow-lg border-2 border-success mb-4">
-        <div class="card-header bg-light text-dark d-flex justify-content-between align-items-center border-bottom-0">
-          <h5 class="mb-0">🛣️ Mes trajets</h5>
-          <button class="btn btn-primary btn-sm">+ Ajouter un trajet</button>
-        </div>
-        <div class="card-body">
-          <div class="list-group">
-            <div class="list-group-item d-flex justify-content-between align-items-center">
-              <strong>Lille → Lyon</strong> — 05/11/2025 à 11h00  
-              <span class="badge bg-info">Places : 3</span>
-            </div>
-            <div class="list-group-item d-flex justify-content-between align-items-center">
-              <strong>Paris → Lille</strong> — 12/11/2025 à 08h30  
-              <span class="badge bg-info">Places : 2</span>
-            </div>
-          </div>
-        </div>
+<div class="card shadow-lg border-2 border-success mb-4" id ="tripProfile">
+        
       </div>
+<script>
+  async function fetchTripProfile() {
+    try {
+        const carProfile = document.getElementById('tripProfile');
+        const url = '{{ path("app_api_profile_trip") }}';
+
+        const response = await fetch(url);
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+
+        const tripData = await response.json();
+        console.log(tripData);
+
+        // Construire les items dynamiques
+        let items = "";
+        tripData.forEach(trip => {
+            const departure = new Date(trip.departureAt);
+            const arrival   = new Date(trip.arrivalAt);
+
+            const options = { 
+                day: '2-digit', month: '2-digit', year: 'numeric',
+                hour: '2-digit', minute: '2-digit'
+            };
+
+            const departureFormatted = departure.toLocaleString('fr-FR', options);
+            const arrivalFormatted   = arrival.toLocaleString('fr-FR', options);
+
+            items += `
+                    <div class="list-group-item d-flex justify-content-between align-items-center">
+                        <strong>${trip.departure} → ${trip.arrival}</strong>
+                        ${departureFormatted} → ${arrivalFormatted}
+
+                    <span class="badge bg-info">Places : 3</span>
+                </div>
+            `;
+        });
+
+        tripProfile.innerHTML = `
+            <div class="card-header bg-light text-dark d-flex justify-content-between align-items-center border-bottom-0">
+                <h5 class="mb-0">🛣️ Mes trajets</h5>
+                <button class="btn btn-primary btn-sm">+ Ajouter un trajet</button>
+            </div>
+            <div class="card-body">
+                <div class="list-group">
+                    ${items}
+                </div>
+            </div>
+        `;
+
+    } catch (error) {
+        console.error('Fetch error:', error);
+    }
+}
+
+fetchTripProfile();
+setInterval(fetchTripProfile, 3000);
+
+</script>

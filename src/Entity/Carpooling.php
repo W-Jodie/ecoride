@@ -33,19 +33,19 @@ class Carpooling
     private Collection $passenger;
 
     #[ORM\Column(length: 50)]
-    #[Groups(['carpooling:read'])]
+    #[Groups(['carpooling:read', 'trip:read'])]
     private ?string $departure = null;
 
     #[ORM\Column(length: 50)]
-    #[Groups(['carpooling:read'])]
+    #[Groups(['carpooling:read', 'trip:read'])]
     private ?string $arrival = null;
 
     #[ORM\Column]
-    #[Groups(['carpooling:read'])]
+    #[Groups(['carpooling:read', 'trip:read'])]
     private ?\DateTimeImmutable $departureAt = null;
 
     #[ORM\Column]
-    #[Groups(['carpooling:read'])]
+    #[Groups(['carpooling:read', 'trip:read'])]
     private ?\DateTimeImmutable $arrivalAt = null;
 
     #[ORM\Column]
