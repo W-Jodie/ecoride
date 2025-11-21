@@ -1,0 +1,132 @@
+<div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+  <div class="container py-5">
+  <h3>Ajouter une voiture </h3>
+ <form id="carForm">
+
+    <!-- Brand -->
+    <div class="form-floating mb-3 mt-4">
+        <input 
+            type="text" 
+            class="form-control" 
+            id="brand" 
+            name="brand" 
+            placeholder="Marque" 
+            maxlength="50" 
+            required
+        >
+        <label for="brand">Marque</label>
+    </div>
+
+    <!-- Model -->
+    <div class="form-floating mb-3">
+        <input 
+            type="text" 
+            class="form-control" 
+            id="model" 
+            name="model" 
+            placeholder="Modèle" 
+            maxlength="50" 
+            required
+        >
+        <label for="model">Modèle</label>
+    </div>
+
+    <!-- License Plate -->
+    <div class="form-floating mb-3">
+        <input 
+            type="text" 
+            class="form-control" 
+            id="licensePlate" 
+            name="licensePlate" 
+            placeholder="Plaque d'immatriculation" 
+            maxlength="50" 
+            required
+        >
+        <label for="licensePlate">Plaque d'immatriculation</label>
+    </div>
+
+
+    <!-- Electric -->
+    <div class="form-floating mb-3">
+        <select 
+            class="form-select" 
+            id="isElectric" 
+            name="isElectric" 
+            required
+        >
+            <option value="1">Oui</option>
+            <option value="0">Non</option>
+        </select>
+        <label for="isElectric">Électrique</label>
+    </div>
+
+    <!-- Submit -->
+    <button type="submit" class="btn btn-primary mt-3">Enregistrer</button>
+
+</form>
+
+<div id="responseMessage" class="mt-3"></div>
+
+  </div>
+</div>
+
+<script>
+document.getElementById('carForm').addEventListener('submit', async function (e) {
+    e.preventDefault(); // Empêche l'envoi classique
+
+    const brand = document.getElementById('brand').value;
+    const model = document.getElementById('model').value;
+    const licensePlate = document.getElementById('licensePlate').value;
+    const isElectric = document.getElementById('isElectric').value === "1";
+
+    const payload = {
+        brand,
+        model,
+        licensePlate,
+        isElectric
+    };
+
+    try {
+        const res = await fetch('/api/car', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(payload)
+        });
+
+        const data = await res.json();
+        const msg = document.getElementById('responseMessage');
+
+        if (res.ok) {
+            msg.innerHTML = `
+                <div class="alert alert-success">
+                    Voiture ajoutée avec succès ! ID : ${data.carId}
+                </div>
+            `;
+            document.getElementById('carForm').reset();
+        } else {
+            msg.innerHTML = `
+                <div class="alert alert-danger">
+                    Erreur : ${data.error}
+                </div>
+            `;
+        }
+    } catch (error) {
+        document.getElementById('responseMessage').innerHTML = `
+            <div class="alert alert-danger">
+                Une erreur est survenue.
+            </div>
+        `;
+    }
+
+    fetchCarProfile();
+    const offcanvasEl = document.getElementById('offcanvasExample');
+    const offcanvas = bootstrap.Offcanvas.getInstance(offcanvasEl);
+
+    if (offcanvas) {
+        offcanvas.hide();
+    }
+
+});
+</script>
