@@ -19,11 +19,11 @@ class Wallet
     private ?User $user = null;
 
     #[ORM\Column(nullable: true)]
-    #[Groups(['carpooling:read'])]
+    #[Groups(['carpooling:read','user:read'])]
     private ?float $credit = null;
 
     #[ORM\Column(nullable: true)]
-    #[Groups(['carpooling:read'])]
+    #[Groups(['carpooling:read','user:read'])]
     private ?float $pendingCredit = null;
 
     public function getId(): ?int

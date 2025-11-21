@@ -23,37 +23,40 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?int $id = null;
 
     #[ORM\Column(length: 180, unique: true)]
-    #[Groups(['carpooling:read'])]
+    #[Groups(['carpooling:read','user:read'])]
     private ?string $email = null;
 
     #[ORM\Column]
+    #[Groups(['user:read'])]
     private array $roles = [];
 
     #[ORM\Column]
     private ?string $password = null;
 
     #[ORM\Column(length: 100)]
-    #[Groups(['carpooling:read'])]
+    #[Groups(['carpooling:read','user:read'])]
     private ?string $firstName = null;
 
     #[ORM\Column(length: 100)]
-    #[Groups(['carpooling:read'])]
+    #[Groups(['carpooling:read','user:read'])]
     private ?string $lastName = null;
 
     #[ORM\Column]
     private bool $isVerified = false;
 
     #[ORM\Column(length: 50, nullable: true)]
-    #[Groups(['carpooling:read'])]
+    #[Groups(['carpooling:read','user:read'])]
     private ?string $pseudo = null;
 
     #[ORM\Column(length: 255, nullable: true)]
+    #[Groups(['user:read'])]
     private ?string $adress = null;
 
     #[ORM\Column(nullable: true)]
     private ?\DateTimeImmutable $dateBirthdayAt = null;
 
     #[ORM\Column(length: 255, nullable: true)]
+    #[Groups(['user:read'])]
     private ?string $picture = null;
 
     /**
@@ -84,6 +87,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private Collection $comments;
 
     #[ORM\OneToOne(mappedBy: 'user', cascade: ['persist', 'remove'])]
+    #[Groups(['user:read'])]
     private ?Wallet $wallet = null;
 
     public function __construct()
