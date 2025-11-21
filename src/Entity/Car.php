@@ -14,22 +14,28 @@ class Car
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['car:read'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 50)]
+    #[Groups(['car:read'])]
     private ?string $brand = null;
 
     #[ORM\Column(length: 50)]
+    #[Groups(['car:read'])]
     private ?string $licensePlate = null;
 
     #[ORM\Column(length: 50)]
+    #[Groups(['car:read'])]
     private ?string $model = null;
 
     #[ORM\ManyToOne(inversedBy: 'cars')]
     #[ORM\JoinColumn(nullable: false)]
+    #[Groups(['car:read'])]
     private ?User $owner = null;
 
     #[ORM\Column]
+    #[Groups(['car:read'])]
     private ?bool $isElectric = null;
 
     /**

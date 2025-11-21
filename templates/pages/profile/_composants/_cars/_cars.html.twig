@@ -1,18 +1,50 @@
-<div class="card shadow-lg border-2 border-success mb-4">
-        <div class="card-header bg-light text-dark d-flex justify-content-between align-items-center border-bottom-0">
-          <h5 class="mb-0">🚘 Mes voitures</h5>
-          <button class="btn btn-primary btn-sm">+ Ajouter une voiture</button>
-        </div>
-        <div class="card-body">
-          <ul class="list-group">
-            <li class="list-group-item d-flex justify-content-between align-items-center">
-              Peugeot 208 (Bleue)
-              <span class="badge bg-info">Immat. : AA-123-BB</span>
-            </li>
-            <li class="list-group-item d-flex justify-content-between align-items-center">
-              Tesla Model 3 (Noire)
-              <span class="badge bg-info">Immat. : EV-456-ZZ</span>
-            </li>
-          </ul>
-        </div>
+<div class="card shadow-lg border-2 border-success mb-4" id ="carProfile">
     </div>
+<script>
+  async function fetchCarProfile() {
+    try {
+        const carProfile = document.getElementById('carProfile');
+        const url = '{{ path("app_api_profile_car") }}';
+
+        const response = await fetch(url);
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+
+        const carData = await response.json();
+        console.log(carData);
+
+        // Construire les items dynamiques
+        let items = "";
+        carData.forEach(car => {
+            items += `
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    ${car.brand} ${car.model} ${car.isElectric ? '(Électrique)' : ''}
+                    <span class="badge bg-info">Immat. : ${car.licensePlate}</span>
+                </li>
+            `;
+        });
+
+        carProfile.innerHTML = `
+            <div class="card-header bg-light text-dark d-flex justify-content-between align-items-center border-bottom-0">
+                <h5 class="mb-0">🚘 Mes voitures</h5>
+                <button class="btn btn-primary btn-sm">+ Ajouter une voiture</button>
+            </div>
+
+            <div class="card-body">
+                <ul class="list-group">
+                    ${items}
+                </ul>
+            </div>
+        `;
+
+    } catch (error) {
+        console.error('Fetch error:', error);
+    }
+}
+
+fetchCarProfile();
+setInterval(fetchCarProfile, 30000);
+
+
+</script>
