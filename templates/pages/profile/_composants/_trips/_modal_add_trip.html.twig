@@ -1,0 +1,143 @@
+<div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasAddTrip" aria-labelledby="offcanvasAddTripLabel">
+
+  <div class="offcanvas-header py-5">
+    <h3 class="offcanvas-title" id="offcanvasAddTripLabel">Ajouter un trajet</h3>
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+  </div>
+
+  <div class="offcanvas-body">
+
+    <form id="tripForm">
+
+        <!-- SELECTION DU VEHICULE -->
+        <div class="form-floating mb-3">
+            <select class="form-select" id="carId" required>
+                <option value="">Chargement...</option>
+            </select>
+            <label for="carId">Choisir un véhicule</label>
+        </div>
+
+        <!-- Départ -->
+        <div class="form-floating mb-3">
+            <input type="text" class="form-control" id="departure" required>
+            <label for="departure">Départ</label>
+        </div>
+
+        <!-- Arrivée -->
+        <div class="form-floating mb-3">
+            <input type="text" class="form-control" id="arrival" required>
+            <label for="arrival">Arrivée</label>
+        </div>
+
+        <!-- Date -->
+        <div class="form-floating mb-3">
+            <input type="date" class="form-control" id="date" required>
+            <label for="date">Date</label>
+        </div>
+
+        <!-- Heure -->
+        <div class="form-floating mb-3">
+            <input type="time" class="form-control" id="time" required>
+            <label for="time">Heure</label>
+        </div>
+
+        <!-- Places -->
+        <div class="form-floating mb-3">
+            <input type="number" min="1" class="form-control" id="seats" required>
+            <label for="seats">Places</label>
+        </div>
+
+        <!-- Prix -->
+        <div class="form-floating mb-3">
+            <input type="number" min="0" step="0.5" class="form-control" id="price" required>
+            <label for="price">Prix (€)</label>
+        </div>
+
+        <button class="btn btn-primary w-100">Enregistrer le trajet</button>
+
+    </form>
+
+    <div id="tripResponseMessage" class="mt-3"></div>
+
+  </div>
+
+</div>
+<script>
+
+// -----------------------------------------------------
+// Charger les véhicules dans le <select>
+// -----------------------------------------------------
+async function loadUserCars() {
+    const select = document.getElementById('carId');
+    select.innerHTML = `<option value="">Chargement...</option>`;
+
+    const res = await fetch('/api/car');
+    const cars = await res.json();
+
+    if (!cars.length) {
+        select.innerHTML = `<option value="">Aucun véhicule</option>`;
+        return;
+    }
+
+    select.innerHTML = `
+        <option value="">Sélectionner un véhicule...</option>
+    `;
+
+    cars.forEach(car => {
+        select.innerHTML += `
+            <option value="${car.id}">
+                ${car.brand} ${car.model} (${car.licensePlate})
+            </option>
+        `;
+    });
+}
+
+// -----------------------------------------------------
+// Charger les voitures quand l'offcanvas s'ouvre
+// -----------------------------------------------------
+document.getElementById('offcanvasAddTrip')
+    .addEventListener('shown.bs.offcanvas', loadUserCars);
+
+// -----------------------------------------------------
+// Ajouter un trajet
+// -----------------------------------------------------
+document.getElementById('tripForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const payload = {
+        carId: carId.value,
+        departure: departure.value,
+        arrival: arrival.value,
+        date: date.value,
+        time: time.value,
+        seats: parseInt(seats.value),
+        price: parseFloat(price.value)
+    };
+
+    const res = await fetch('/api/carpooling', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+    });
+
+    const data = await res.json();
+    const msg = document.getElementById('tripResponseMessage');
+
+    if (res.ok) {
+        msg.innerHTML = `<div class="alert alert-success">Trajet ajouté ✔</div>`;
+        document.getElementById('tripForm').reset();
+
+        // fermer offcanvas
+        bootstrap.Offcanvas.getInstance(
+            document.getElementById('offcanvasAddTrip')
+        ).hide();
+
+        // rafraîchir liste trajets
+        if (typeof fetchTripProfile === "function") fetchTripProfile();
+
+    } else {
+        msg.innerHTML = `<div class="alert alert-danger">Erreur : ${data.error}</div>`;
+    }
+});
+
+</script>

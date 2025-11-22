@@ -1,7 +1,13 @@
 <div class="card shadow-lg border-2 border-success mb-4">
     <div class="card-header bg-light text-dark d-flex justify-content-between align-items-center border-bottom-0">
         <h5 class="mb-0">🛣️ Mes trajets</h5>
-        <button class="btn btn-primary btn-sm">+ Ajouter un trajet</button>
+        <button class="btn btn-primary btn-sm"
+        type="button"
+        data-bs-toggle="offcanvas"
+        data-bs-target="#offcanvasAddTrip"
+        aria-controls="offcanvasAddTrip">
+    + Ajouter un trajet
+</button>
     </div>
 
     <div class="card-body">
@@ -10,6 +16,7 @@
         </div>
     </div>
 </div>
+    {{include('pages/profile/_composants/_trips/_modal_add_trip.html.twig')}}
 <script>
 async function fetchTripProfile() {
     try {
@@ -73,4 +80,46 @@ async function fetchTripProfile() {
 
 fetchTripProfile();
 setInterval(fetchTripProfile, 30000);
+
+document.addEventListener('DOMContentLoaded', () => {
+
+    // Soumission du formulaire d'ajout de trajet
+    document.getElementById('tripForm').addEventListener('submit', async function (e) {
+        e.preventDefault();
+
+        const payload = {
+            departure: departure.value,
+            arrival: arrival.value,
+            date: date.value,
+            time: time.value,
+            seats: parseInt(seats.value),
+            price: parseFloat(price.value)
+        };
+
+        const res = await fetch('/api/carpooling', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(payload)
+        });
+
+        const data = await res.json();
+        const msg = document.getElementById('tripResponseMessage');
+
+        if (res.ok) {
+            msg.innerHTML = `<div class="alert alert-success">Trajet ajouté !</div>`;
+            document.getElementById('tripForm').reset();
+
+            // Fermer l’offcanvas
+            const offcanvas = bootstrap.Offcanvas.getInstance(document.getElementById('offcanvasAddTrip'));
+            if (offcanvas) offcanvas.hide();
+
+            // Rafraîchir les trajets
+            if (typeof fetchTripProfile === 'function') fetchTripProfile();
+
+        } else {
+            msg.innerHTML = `<div class="alert alert-danger">Erreur : ${data.error ?? 'Une erreur est survenue'}</div>`;
+        }
+    });
+
+});
 </script>
