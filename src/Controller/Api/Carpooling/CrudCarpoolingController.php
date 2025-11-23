@@ -70,7 +70,7 @@ class CrudCarpoolingController extends AbstractController
         $trip->setDriver($user);
         $trip->setCar($car);
 
-        $trip->setStatus('active');     // statut par défaut
+        $trip->setStatus('En attente');     // statut par défaut
         $trip->setIsEcoTrip(false);     // ou true si tu veux l'activer plus tard
 
         $em->persist($trip);

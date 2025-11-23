@@ -65,26 +65,26 @@
 <script>
 
 // -----------------------------------------------------
-// Charger les véhicules dans le <select>
+// Charger les véhicules dans le <carId>
 // -----------------------------------------------------
 async function loadUserCars() {
-    const select = document.getElementById('carId');
-    select.innerHTML = `<option value="">Chargement...</option>`;
+    const carId = document.getElementById('carId');
+    carId.innerHTML = `<option value="">Chargement...</option>`;
 
     const res = await fetch('/api/car');
     const cars = await res.json();
 
     if (!cars.length) {
-        select.innerHTML = `<option value="">Aucun véhicule</option>`;
+        carId.innerHTML = `<option value="">Aucun véhicule</option>`;
         return;
     }
 
-    select.innerHTML = `
+    carId.innerHTML = `
         <option value="">Sélectionner un véhicule...</option>
     `;
 
     cars.forEach(car => {
-        select.innerHTML += `
+        carId.innerHTML += `
             <option value="${car.id}">
                 ${car.brand} ${car.model} (${car.licensePlate})
             </option>
@@ -127,10 +127,12 @@ document.getElementById('tripForm').addEventListener('submit', async (e) => {
         msg.innerHTML = `<div class="alert alert-success">Trajet ajouté ✔</div>`;
         document.getElementById('tripForm').reset();
 
-        // fermer offcanvas
+        setTimeout(()=>{
+            // fermer offcanvas
         bootstrap.Offcanvas.getInstance(
             document.getElementById('offcanvasAddTrip')
         ).hide();
+        },2000)
 
         // rafraîchir liste trajets
         if (typeof fetchTripProfile === "function") fetchTripProfile();

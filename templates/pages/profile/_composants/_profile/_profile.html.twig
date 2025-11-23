@@ -1,37 +1,63 @@
 <div class="col-md-4 mb-4">
-  <div class="card shadow-sm text-center border border-2 border-success">
-    <div class="card-body" id="userProfile"></div>
-  </div>
+    <div class="card shadow-sm text-center border border-2 border-success">
+        <div class="card-body" id="userProfile"></div>
+    </div>
 </div>
 
 <script>
+/* -----------------------------------------------------
+   Fonction : Attacher le bouton toggle du rôle
+----------------------------------------------------- */
+async function attachToggleRoleButton() {
+    const toggleBtn = document.getElementById('toggleRoleBtn');
+    if (!toggleBtn) return;
+
+    toggleBtn.addEventListener('click', async () => {
+        toggleBtn.disabled = true;
+        toggleBtn.innerText = "Changement...";
+
+        // URL CORRECTE EN HTTP (pas https)
+        const url = "{{path('app_api_profile_switch_role')}}";
+
+        const res = await fetch(url, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" }
+        });
+
+        const data = await res.json();
+
+        if (res.ok) {
+            toggleBtn.innerText =
+                data.newRole === "ROLE_DRIVER" ? "Mode Driver" : "Mode Passenger";
+        } else {
+            toggleBtn.innerText = "Erreur";
+        }
+
+        toggleBtn.disabled = false;
+    });
+}
+
+
+/* -----------------------------------------------------
+   Fonction : Charger le profil utilisateur
+----------------------------------------------------- */
 async function fetchUserProfile() {
     try {
         const userProfile = document.getElementById('userProfile');
         const url = '{{ path("app_api_profile") }}';
 
         const response = await fetch(url);
-        if (!response.ok) {
-            throw new Error('Network response was not ok');
-        }
+        if (!response.ok) throw new Error('Network error');
 
         const userData = await response.json();
-        //console.log(userData);
 
-        // Définition d'un email fallback si l'utilisateur n'a pas d'email configuré
         const email = userData.email ?? "pas de mail renseigné";
-
-        // Solde du portefeuille (wallet)
         const credit = userData.wallet?.credit ?? 0;
-
-        // Adresse (mise en forme propre)
-        const address = userData.adress
-            ? userData.adress.replace(/\n/g, "<br>")
-            : "Adresse non renseignée";
+        const address = userData.adress?.replace(/\n/g, "<br>") ?? "Adresse non renseignée";
 
         userProfile.innerHTML = `
-            <img src="{{ asset('assets/img/marie.jpg') }}" 
-                 alt="Photo de profil" 
+            <img src="{{ asset('assets/img/marie.jpg') }}"
+                 alt="Photo de profil"
                  class="rounded-circle mb-3 shadow w-50">
 
             <h5 class="fw-bold mb-1">${userData.firstName} ${userData.lastName}</h5>
@@ -46,7 +72,6 @@ async function fetchUserProfile() {
 
             <hr>
 
-            <!-- Statistiques -->
             <div class="d-flex justify-content-around mb-3">
                 <div>
                     <h5 class="text-success mb-0">+120</h5>
@@ -65,15 +90,32 @@ async function fetchUserProfile() {
             <hr>
 
             <div class="d-grid gap-2 mt-3">
-                <a href="#" class="btn btn-outline-primary btn-sm">Mode passager</a>
-                <a href="{{ path('app_logout') }}" class="btn btn-outline-secondary btn-sm">Déconnexion</a>
+                <button id="toggleRoleBtn" class="btn btn-outline-primary btn-sm">
+                    ${userData.roles.includes('ROLE_DRIVER')
+                        ? 'Mode Driver'
+                        : 'Mode Passenger'}
+                </button>
+                
+                <a href="{{ path('app_logout') }}"
+                   class="btn btn-outline-secondary btn-sm">
+                    Déconnexion
+                </a>
             </div>
         `;
 
-    } catch (error) {
-        console.error('Fetch error:', error);
+        // Réattacher l'événement du bouton après mise à jour du HTML
+        await attachToggleRoleButton();
+
+    } catch (err) {
+        console.error(err);
     }
 }
-fetchUserProfile()
-setInterval(fetchUserProfile, 3000); 
+
+
+/* -----------------------------------------------------
+   INIT
+----------------------------------------------------- */
+fetchUserProfile();
+setInterval(fetchUserProfile, 3000); // refresh auto toutes les 3 sec
+
 </script>

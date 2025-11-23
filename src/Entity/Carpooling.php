@@ -64,7 +64,7 @@ class Carpooling
     private Collection $reservations;
 
     #[ORM\Column(length: 20)]
-    #[Groups(['carpooling:read'])]
+    #[Groups(['carpooling:read','trip:read'])]
     private ?string $status = null;
 
     /**

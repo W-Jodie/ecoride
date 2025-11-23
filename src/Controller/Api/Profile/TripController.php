@@ -13,7 +13,7 @@ final class TripController extends AbstractController
         public function index(CarpoolingRepository $tripRepository): Response
         {
             // TEST RAPIDE — user ID 1
-            $user = 22;
+            $user = $this->getUser();
 
             $trips = $tripRepository->findBy(['driver' => $user]);
 

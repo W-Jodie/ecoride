@@ -12,7 +12,7 @@ final class CarController extends AbstractController
     #[Route('/api/profile/car', name: 'app_api_profile_car', methods: ['GET'])]
     public function index(CarRepository $carRepository): Response
     { 
-        $user = $this->getUser();
+        $user = 22;
         if (!$user) {
             return $this->json(['message' => 'Unauthorized'], 401);
         }

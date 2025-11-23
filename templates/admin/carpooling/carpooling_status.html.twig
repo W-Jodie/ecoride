@@ -1,0 +1,49 @@
+{% extends 'base_admin.html.twig' %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block body %}
+
+{% for carpooling in carpoolings %}
+
+<div class="container">
+  <div class="card mb-3 shadow-sm">
+    <div class="row g-0 align-items-center">
+
+      <!-- Infos trajet -->
+      <div class="col-md-8 p-3">
+        <h5 class="card-title fw-bold mb-2">
+          {{ carpooling.departure }} → {{ carpooling.arrival }}
+        </h5>
+
+        <p class="mb-1">
+          <strong>Prix :</strong> {{ carpooling.price }} €
+        </p>
+
+        <span class="badge bg-warning text-dark">
+          En attente de validation
+        </span>
+      </div>
+
+      <!-- Boutons -->
+      <div class="col-md-4 text-end p-3 d-flex justify-content-end gap-2">
+
+        <a href="{{ path('app_admin_active_carpooling', { id: carpooling.id }) }}" 
+           class="btn btn-success mx-2">
+          ✔ Valider
+        </a>
+
+        <a href="{{ path('app_admin_refuse_carpooling', { id: carpooling.id }) }}" 
+           class="btn btn-danger mx-2">
+          ✖ Refuser
+        </a>
+
+      </div>
+
+    </div>
+  </div>
+</div>
+
+{% endfor %}
+
+{% endblock %}

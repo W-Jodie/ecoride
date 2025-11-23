@@ -25,13 +25,13 @@
 		Protégez l’avenir avec
 		<span class="text-primary">EcoRide</span>
 	</h2>
-	<p class="lead text-light opacity-90 w-75 mx-auto mb-4 animate__animated animate__fadeInUp animate__delay-2s">
+		<p class="lead text-light opacity-90 w-75 mx-auto mb-4 animate__animated animate__fadeInUp animate__delay-2s hide-mobile">
 		Ensemble, réduisons notre empreinte carbone en partageant nos trajets du quotidien.
-	</p>
+		</p>
 
 </p>
 
-<a href="#trajets" class="btn btn-lg btn-outline-light px-4 py-2 shadow-sm animate__animated animate__fadeInUp animate__delay-3s">
+<a href="{{ path('app_front_carpooling') }}" class="btn btn-lg btn-outline-light px-4 py-2 shadow-sm animate__animated animate__fadeInUp animate__delay-3s">
 Découvrir les trajets
 </a></div></div></div>
 
@@ -39,26 +39,28 @@ Découvrir les trajets
 <!-- === SLIDE 2 === -->
 <div class="carousel-item">
 
-<div class="carousel-slide" style="background-image: url('{{ asset('assets/img/route.jpg') }}');">
-	<div class="carousel-overlay"></div>
+	<div class="carousel-slide" style="background-image: url('{{ asset('assets/img/route.jpg') }}');">
+		<div class="carousel-overlay"></div>
 
 
-<div class="carousel-caption text-center">
-	<h1 class="display-4 fw-bold mb-3 text-white text-uppercase animate__animated animate__fadeInDown">
-		EcoRide
-	</h1>
-	<h2 class="fs-3 mb-4 text-light animate__animated animate__fadeInUp animate__delay-1s">
-		Le covoiturage qui respecte la planète 🌎
-	</h2>
-	<p class="lead text-light opacity-90 w-75 mx-auto mb-4 animate__animated animate__fadeInUp animate__delay-2s">
-		Trouvez un conducteur ou un passager en quelques clics, gérez vos réservations et suivez votre impact écologique.
-								            Ensemble, faisons de chaque trajet un pas vers un futur plus vert.
-	</p>
+			<div class="carousel-caption text-center">
+				<h1 class="display-4 fw-bold mb-3 text-white text-uppercase animate__animated animate__fadeInDown">
+					EcoRide
+				</h1>
+				<h2 class="fs-3 mb-4 text-light animate__animated animate__fadeInUp animate__delay-1s">
+					Le covoiturage qui respecte la planète 🌎
+				</h2>
+				<p class="lead text-light opacity-90 w-75 mx-auto mb-4 animate__animated animate__fadeInUp animate__delay-2s hide-mobile">
+				Trouvez un conducteur ou un passager en quelques clics, gérez vos réservations et suivez votre impact écologique. Ensemble, faisons de chaque trajet un pas vers un futur plus vert.
+				</p>
 
-<a href="#inscription" class="btn btn-lg btn-outline-light px-4 py-2 shadow-sm animate__animated animate__fadeInUp animate__delay-3s">
-	Inscrivez-vous !
-</a>
-</div></div></div></div>
+				<a href="{{ path('app_register') }}" class="btn btn-lg btn-outline-light px-4 py-2 shadow-sm animate__animated animate__fadeInUp animate__delay-3s">
+					Inscrivez-vous !
+				</a>
+			</div>
+		</div>
+	</div>
+</div>
 
 
 <!-- Contrôles -->
@@ -116,6 +118,11 @@ Découvrir les trajets
 		border-color: var(--bs-dark);
 	
 	}
+	@media (max-width: 768px) {
+    .hide-mobile {
+        display: none !important;
+    }
+}
 </style>
 
 <!-- Animation (facultatif mais conseillé pour un effet pro) -->
