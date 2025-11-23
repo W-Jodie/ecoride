@@ -3,48 +3,75 @@
 namespace App\Controller\Api\Profile;
 
 use App\Entity\User;
-use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 
 final class SwitchUserController extends AbstractController
 {
     #[Route('/api/profile/switch/role', name: 'app_api_profile_switch_role', methods: ['POST'])]
     public function switchUser(
-        UserRepository $userRepository, 
+        Request $request,
         EntityManagerInterface $em
     ): Response {
-        
+        /** @var User $user */
         $user = $this->getUser();
 
         if (!$user) {
             return $this->json(['message' => 'No user found'], 404);
         }
 
-        /** @var User $user */
         $currentRoles = $user->getRoles();
+        $newRole = null;
 
         // -----------------------------------------------------------
-        // LOGIQUE DU TOGGLE
+        // 🔄 TOGGLE ENTRE ROLE_DRIVER ET ROLE_PASSENGER
         // -----------------------------------------------------------
         if (in_array('ROLE_DRIVER', $currentRoles)) {
-            // REVERSER → il devient PASSENGER
             $user->setRoles(['ROLE_PASSENGER']);
             $newRole = 'ROLE_PASSENGER';
         } else {
-            // Sinon → il devient DRIVER
             $user->setRoles(['ROLE_DRIVER']);
             $newRole = 'ROLE_DRIVER';
         }
 
-        $em->persist($user);
+        // -----------------------------------------------------------
+        // 💾 Sauvegarde
+        // -----------------------------------------------------------
         $em->flush();
 
+        // -----------------------------------------------------------
+        // 🔐 REFRESH DE LA SESSION POUR ÉVITER LA DÉCONNEXION
+        // -----------------------------------------------------------
+        $token = new UsernamePasswordToken($user, 'main', $user->getRoles());
+        $this->container->get('security.token_storage')->setToken($token);
+        $request->getSession()->set('_security_main', serialize($token));
+
+        // -----------------------------------------------------------
+        // 🟢 RÉPONSE JSON
+        // -----------------------------------------------------------
         return $this->json([
             'message' => 'Role updated successfully',
-            'newRole' => $newRole
+            'newRole' => $newRole,
+            'roles'   => $user->getRoles()
         ], 200);
     }
+
+    #[Route('/api/profile/role', name: 'api_profile_role', methods: ['GET'])]
+public function getRole(): Response
+{
+    $user = $this->getUser();
+
+    if (!$user) {
+        return $this->json(['role' => null]);
+    }
+
+    return $this->json([
+        'roles' => $user->getRoles()
+    ]);
+}
+
 }
