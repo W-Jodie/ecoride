@@ -1,97 +1,77 @@
+<div class="container my-4">
 
+    {% if trajets is empty %}
+        <div class="alert alert-info">Aucun covoiturage trouvé.</div>
+    {% else %}
+        {% for carpooling in trajets %}
+        
+            <div class="row border rounded shadow-sm p-3 mb-3 {{ carpooling.isEcoTrip ? 'bg-primary bg-opacity-25' : 'bg-info bg-opacity-25' }}">
+                
+                <!-- Colonne 1 -->
+                <div class="col-md-3 text-center">
+                    <img src="{{ asset('assets/img/joaquim.jpg') }}" class="img-fluid rounded mb-2" alt="Photo conducteur" />
 
-<div class="container my-4" id="carpoolingList">
+                    <h5 class="mb-1">{{ carpooling.driver.firstName }}</h5>
 
+                    <div class="text-warning">
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-half"></i>
+                        <i class="bi bi-star"></i>
+                    </div>
+                </div>
 
-    </div>
+                <!-- Colonne 2 -->
+                <div class="col-md-4">
+                    <div class="d-flex flex-column gap-2">
+                        <div class="p-2 border rounded bg-light text-center shadow bg-opacity-25">
+                            <strong>Ville de départ</strong><br />
+                            <small>{{ carpooling.departure }}</small>
+                        </div>
 
-    <script>
-    
+                        <div class="p-2 border rounded bg-light text-center shadow bg-opacity-25">
+                            <strong>Date et heure de départ</strong><br />
+                            <small>{{ carpooling.departureAt|date('d/m/Y H:i') }}</small>
+                        </div>
 
-    async function getCarpooling() {
-  const url = "{{ path('app_api_get_carpooling') }}";
-  const carpoolingList = document.getElementById('carpoolingList');
+                        <div class="p-2 border rounded bg-light text-center shadow bg-opacity-25">
+                            <strong>Nombre de places</strong><br />
+                            <small>{{ carpooling.seats ?? 'N/A' }}</small>
+                        </div>
 
-  let response = await fetch(url, { credentials: 'include' });
+                        <div class="p-2 border rounded bg-light text-center shadow bg-opacity-25">
+                            <strong>Type</strong><br />
+                            <span class="badge rounded-pill {{ carpooling.isEcoTrip ? 'bg-success' : 'bg-secondary' }}">
+                                {{ carpooling.isEcoTrip ? 'Éco' : 'Standard' }}
+                            </span>
+                        </div>
+                    </div>
+                </div>
 
-  if (response.ok) {
-    let json = await response.json();
-    carpoolingList.innerHTML = ""; // Nettoyage avant affichage
+                <!-- Colonne 3 -->
+                <div class="col-md-5">
+                    <div class="d-flex flex-column gap-2">
+                        <div class="p-2 border rounded bg-light text-center shadow bg-opacity-25">
+                            <strong>Ville d’arrivée</strong><br />
+                            <small>{{ carpooling.arrival }}</small>
+                        </div>
 
-    json.forEach(carpooling => {
-      carpoolingList.innerHTML += `
-        <div class="row border rounded shadow-sm p-3 mb-3  ${carpooling.isEcoTrip ? 'bg-primary bg-opacity-25' : 'bg-info bg-opacity-25'}">
-          <!-- Colonne 1 -->
-          <div class="col-md-3 text-center">
-            <img
-              src="public/assets/img/joaquim.jpg"
-              class="img-fluid rounded mb-2"
-              alt="Photo conducteur"
-            />
-            <h5 class="mb-1">${carpooling.driver.firstName}</h5>
-            <div class="text-warning">
-              <i class="bi bi-star-fill"></i>
-              <i class="bi bi-star-fill"></i>
-              <i class="bi bi-star-fill"></i>
-              <i class="bi bi-star-half"></i>
-              <i class="bi bi-star"></i>
+                        <div class="p-2 border rounded bg-light text-center shadow bg-opacity-25">
+                            <strong>Date et heure d’arrivée</strong><br />
+                            <small>{{ carpooling.arrivalAt|date('d/m/Y H:i') }}</small>
+                        </div>
+
+                        <div class="p-2 border rounded bg-light text-center shadow bg-opacity-25">
+                            <strong>Prix</strong><br />
+                            <small>{{ carpooling.price }} €</small>
+                        </div>
+
+                        <a href="{{path('app_front_carpooling_show', {'id':carpooling.id})}}" class="btn btn-primary btn-lg w-100">Détails</a>
+                    </div>
+                </div>
             </div>
-          </div>
 
-          <!-- Colonne 2 -->
-          <div class="col-md-4">
-            <div class="d-flex flex-column gap-2">
-              <div class="p-2 border rounded bg-light text-center shadow bg-opacity-25">
-                <strong>Ville de départ</strong><br />
-                <small>${carpooling.departure}</small>
-              </div>
-              <div class="p-2 border rounded bg-light text-center shadow bg-opacity-25">
-                <strong>Date et heure de départ</strong><br />
-                <small>${carpooling.departureAt}</small>
-              </div>
-              <div class="p-2 border rounded bg-light text-center shadow bg-opacity-25">
-                <strong>Nombre de places</strong><br />
-                <small>${carpooling.seats ?? 'N/A'}</small>
-              </div>
-              <div class="p-2 border rounded bg-light text-center shadow bg-opacity-25">
-                <strong>Type</strong><br />
-                <span class="badge rounded-pill ${carpooling.isEcoTrip ? 'bg-success' : 'bg-secondary'}">
-                  ${carpooling.isEcoTrip ? 'Éco' : 'Standard'}
-                </span>
-              </div>
-            </div>
-          </div>
-
-          <!-- Colonne 3 -->
-          <div class="col-md-5">
-            <div class="d-flex flex-column gap-2">
-              <div class="p-2 border rounded bg-light text-center shadow bg-opacity-25">
-                <strong>Ville d’arrivée</strong><br />
-                <small>${carpooling.arrival}</small>
-              </div>
-              <div class="p-2 border rounded bg-light text-center shadow bg-opacity-25">
-                <strong>Date et heure d’arrivée</strong><br />
-                <small>${carpooling.arrivalAt}</small>
-              </div>
-              <div class="p-2 border rounded bg-light text-center shadow bg-opacity-25">
-                <strong>Prix</strong><br />
-                <small>${carpooling.price} €</small>
-              </div>
-              <a href="#" class="btn btn-primary btn-lg w-100">Détails</a>
-            </div>
-          </div>
-        </div>
-      `;
-    });
-  } else {
-    alert("HTTP-Error: " + response.status);
-  }
-}
-
-
-    getCarpooling();      
-  
-
-
-
-    </script>
+        {% endfor %}
+    {% endif %}
+</div>

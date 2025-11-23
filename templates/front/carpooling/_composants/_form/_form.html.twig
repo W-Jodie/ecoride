@@ -1,57 +1,59 @@
-<div class="container-fluid bg-light  text-dark py-3 mb-4">
-  
-<div class="container mt-3 px-0">
-<form class="p-4   bg-light">
+<div class="container-fluid bg-light text-dark py-3 mb-4">
+    <div class="container mt-3 px-0">
+
+<form class="p-4 bg-light" method="GET" action="{{ path('carpooling_search') }}">
 
   <div class="row">
+
     <!-- Colonne 1 : Départ -->
     <div class="col-md-4">
       <label for="villeDepart" class="form-label">Ville de départ</label>
-      <input type="text" class="form-control" id="villeDepart" placeholder="Ex : Lille">
+      <input type="text" class="form-control" id="villeDepart" name="depart" placeholder="Ex : Lille">
 
       <label for="dateDepart" class="form-label mt-3">Date de départ</label>
-      <input type="date" class="form-control" id="dateDepart">
+      <input type="date" class="form-control" id="dateDepart" name="date">
     </div>
 
     <!-- Colonne 2 : Arrivée -->
     <div class="col-md-4">
       <label for="villeArrivee" class="form-label">Ville d’arrivée</label>
-      <input type="text" class="form-control" id="villeArrivee" placeholder="Ex : Paris">
+      <input type="text" class="form-control" id="villeArrivee" name="arrivee" placeholder="Ex : Paris">
 
       <label for="placesDispo" class="form-label mt-3">Places disponibles</label>
-      <select class="form-select" id="placesDispo">
-        <option selected>Choisir...</option>
-        <option>1 place</option>
-        <option>2 places</option>
-        <option>3 places</option>
-        <option>4 places</option>
+      <select class="form-select" id="placesDispo" name="places">
+        <option value="">Choisir...</option>
+        <option value="1">1 place</option>
+        <option value="2">2 places</option>
+        <option value="3">3 places</option>
+        <option value="4">4 places</option>
       </select>
     </div>
 
     <!-- Colonne 3 : Prix & Eco -->
     <div class="col-md-4">
       <label for="prixMax" class="form-label">Prix maximum (€)</label>
-      <input type="number" class="form-control" id="prixMax" placeholder="Ex : 30">
+      <input type="number" class="form-control" id="prixMax" name="prixMax" placeholder="Ex : 30">
 
-      <label for="trajetEco" class="form-label mt-3">Trajet écologique</label>
+      <label class="form-label mt-3">Trajet écologique</label>
       <div class="form-check form-switch m-2">
-                      <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" checked="">
-                      <label class="form-check-label" for="flexSwitchCheckChecked" id="isEcoLabel">Ecologique</label>
-                    </div>
+        <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" name="eco">
+        <label class="form-check-label" for="flexSwitchCheckChecked" id="isEcoLabel">Ecologique</label>
+      </div>
     </div>
 
-   
   </div>
-   <!-- Colonne 4 : Actions -->
-    <div class="mt-2">
+
+  <div class="mt-2">
       <button type="submit" class="btn btn-primary w-100 mb-2 mt-4">
         🔍 Rechercher
       </button>
-    </div>
+  </div>
+
 </form>
 
+    </div>
 </div>
-</div>
+
 <script>
 const flexSwitchCheckChecked = document.getElementById('flexSwitchCheckChecked');
 const isEcoLabel = document.getElementById('isEcoLabel');
@@ -62,6 +64,12 @@ flexSwitchCheckChecked.addEventListener('change', function() {
           isEcoLabel.textContent = 'Non Ecologique';
 
     }
-});
 
+const flexSwitchCheckChecked = document.getElementById('flexSwitchCheckChecked');
+const isEcoLabel = document.getElementById('isEcoLabel');
+
+flexSwitchCheckChecked.addEventListener('change', function() {
+    isEcoLabel.textContent = this.checked ? 'Ecologique' : 'Non Ecologique';
+});
 </script>
+

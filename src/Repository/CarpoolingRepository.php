@@ -15,6 +15,41 @@ class CarpoolingRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Carpooling::class);
     }
+    public function searchCarpoolings($depart, $arrivee, $date, $prixMax, $eco)
+{
+    $qb = $this->createQueryBuilder('c');
+
+    if ($depart) {
+        $qb->andWhere('LOWER(c.departure) LIKE :depart')
+           ->setParameter('depart', '%' . strtolower($depart) . '%');
+    }
+
+    if ($arrivee) {
+        $qb->andWhere('LOWER(c.arrival) LIKE :arrivee')
+           ->setParameter('arrivee', '%' . strtolower($arrivee) . '%');
+    }
+
+    if ($date) {
+        $start = new \DateTime($date . ' 00:00:00');
+        $end   = new \DateTime($date . ' 23:59:59');
+
+        $qb->andWhere('c.departureAt BETWEEN :start AND :end')
+           ->setParameter('start', $start)
+           ->setParameter('end', $end);
+    }
+
+    if ($prixMax) {
+        $qb->andWhere('c.price <= :prix')
+           ->setParameter('prix', $prixMax);
+    }
+
+    if ($eco === "1") {
+        $qb->andWhere('c.isEcoTrip = 1');
+    }
+
+    return $qb->getQuery()->getResult();
+}
+
 
     //    /**
     //     * @return Carpooling[] Returns an array of Carpooling objects
