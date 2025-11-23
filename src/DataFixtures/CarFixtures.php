@@ -45,6 +45,7 @@ class CarFixtures extends Fixture
             $car->setLicensePlate(strtoupper($faker->bothify('??-###-??')));
             $car->setIsElectric($faker->boolean(30)); // 30% de chances d'être électrique
             $car->setOwner($user);
+            $car->setIsActive(true);
 
             $manager->persist($car);
         }

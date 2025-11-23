@@ -36,7 +36,7 @@ class AppFixtures extends Fixture
             $user->setEmail("user$i@example.com");
             $user->setFirstName($faker->firstName());
             $user->setLastName($faker->lastName());
-            $user->setRoles(['ROLE_USER']);
+            $user->setRoles(['ROLE_PASSENGER']);
             $user->setIsVerified(true);
             $user->setAdress($faker->address());
             $user->setDateBirthdayAt(new DateTimeImmutable($faker->date()));
@@ -61,6 +61,7 @@ class AppFixtures extends Fixture
             $car->setLicensePlate(strtoupper($faker->bothify('??-###-??')));
             $car->setIsElectric($faker->boolean(40)); // 40% électriques
             $car->setOwner($faker->randomElement($users));
+            $car->setIsActive(true);
 
             $manager->persist($car);
             $cars[] = $car;

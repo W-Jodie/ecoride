@@ -12,7 +12,7 @@ final class AccountHistoryController extends AbstractController
     #[Route('/api/profile/account/history', name: 'app_api_profile_account_history')]
         public function index(ReservationRepository $accountRepository): Response
             {
-                $user = 22;
+                $user = $this->getUser();
                 $reservation = $accountRepository->findBy(['driver' => $user]);
 
                 if (!$reservation) {
